@@ -1,0 +1,9 @@
+{
+  "status": "finished",
+  "run_id": 2,
+  "mode": "ncu_only",
+  "utc": "2026-09-20T10:09:43.592280+00:00",
+  "call_id": "fc-01M2Z4P2GG5NH7YEGH3ZCBNXS2",
+  "passed": true,
+  "result_file": "run_002_ncu_only.json"
+}

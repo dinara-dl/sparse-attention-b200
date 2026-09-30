@@ -1,0 +1,4389 @@
+{
+  "passed": true,
+  "mode": "performance",
+  "skv": 16384,
+  "checks": [],
+  "records": [
+    {
+      "shape": {
+        "batch": 2,
+        "hq": 16,
+        "hkv": 1,
+        "sq": 4096,
+        "skv": 16384
+      },
+      "pattern": "independent",
+      "seed": 17,
+      "qk_scale": 1.0,
+      "reverse_ids": false,
+      "topk": 16,
+      "block_size": 128,
+      "dim": 128,
+      "dtype": "BF16",
+      "causal": false,
+      "selected_sha256": "c1a488ca25880a4bd7a05c79ca98e804f4f2ab73c807dcee40e10dcdcf623ace",
+      "input_sha256": {
+        "q": "ae35073b3554ff876a32336c74bbe6bcc208198b94dc40bb9065bcfcf3f3c15e",
+        "k": "1581ba3b09acadedde7f2940a685cd8b24649cedf055c8871584542f484d5e56",
+        "v": "002ec02ec77944c4b8de518f17b1b1a4e189abd93d464c47523693a64e39ef72"
+      },
+      "reference": "full independent FP32 QK/softmax/PV; TF32 disabled",
+      "our_work_items": 512,
+      "gpu_sm_count": 148,
+      "correctness": {
+        "ours_vs_fp32": {
+          "max_abs": 0.001108407974243164,
+          "rmse": 8.556462853448465e-05,
+          "relative_l2": 0.0023271834943443537,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_vs_fp32": {
+          "max_abs": 0.0012415945529937744,
+          "rmse": 8.557592082070187e-05,
+          "relative_l2": 0.002327490597963333,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011492425255710259,
+          "relative_l2": 0.0031257118098437786,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q2_unpack_vs_fp32": {
+          "max_abs": 0.0012415945529937744,
+          "rmse": 8.557051478419453e-05,
+          "relative_l2": 0.0023273436818271875,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011493442434584722,
+          "relative_l2": 0.0031259884126484394,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q1_pack_vs_fp32": {
+          "max_abs": 0.0012415945529937744,
+          "rmse": 8.555796375731006e-05,
+          "relative_l2": 0.002327002352103591,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011487801384646446,
+          "relative_l2": 0.003124454291537404,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q1_unpack_vs_fp32": {
+          "max_abs": 0.0012415945529937744,
+          "rmse": 8.55543403304182e-05,
+          "relative_l2": 0.0023269038647413254,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.000114883114292752,
+          "relative_l2": 0.003124592825770378,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_dense_pack_autocta_vs_fp32": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.063015537918545e-05,
+          "relative_l2": 0.0023181079886853695,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_autocta_vs_fp32": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.063015537918545e-05,
+          "relative_l2": 0.0023181079886853695,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_1cta_vs_fp32": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.063015537918545e-05,
+          "relative_l2": 0.0023181079886853695,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_1cta_vs_fp32": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.062282848986797e-05,
+          "relative_l2": 0.0023175536189228296,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "configs": {
+        "fa4_q2_pack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 2,
+            "sparse_block_size": [
+              256,
+              128
+            ],
+            "full_block_count": 65,
+            "partial_block_count": 894,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1918,
+            "union_schedule_work_ratio": 1.873046875,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 0.126953125,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": true,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q2_unpack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 2,
+            "sparse_block_size": [
+              256,
+              128
+            ],
+            "full_block_count": 65,
+            "partial_block_count": 894,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1918,
+            "union_schedule_work_ratio": 1.873046875,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 0.126953125,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": true,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q1_pack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 1,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": true,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 1,
+            "sparse_block_size": [
+              128,
+              128
+            ],
+            "full_block_count": 1024,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 0.126953125,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q1_unpack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 1,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": true,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 1,
+            "sparse_block_size": [
+              128,
+              128
+            ],
+            "full_block_count": 1024,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 0.126953125,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_pack_autocta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_unpack_autocta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_pack_1cta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": true
+        },
+        "fa4_dense_unpack_1cta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": true
+        }
+      },
+      "gpu_before": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 43, 279.40 W, 1965 MHz, 3996 MHz, P0",
+        "stderr": ""
+      },
+      "samples_ms": {
+        "ours": [
+          0.1386051582159356,
+          0.14028102136894063,
+          0.1402059140412704
+        ],
+        "fa4_q2_pack": [
+          0.3083909891419492,
+          0.3085578312949529,
+          0.308379647391183
+        ],
+        "fa4_q2_unpack": [
+          0.34741293589274086,
+          0.3473852896092662,
+          0.34741781313960163
+        ],
+        "fa4_q1_pack": [
+          0.16018693444216092,
+          0.16083084811839454,
+          0.1611192943980393
+        ],
+        "fa4_q1_unpack": [
+          0.15850916413216867,
+          0.159303482393082,
+          0.15948081310884452
+        ],
+        "fa4_dense_pack_autocta": [
+          1.0899514667058394,
+          1.0901747881355932,
+          1.0927950325658766
+        ],
+        "fa4_dense_unpack_autocta": [
+          1.0917005867793643,
+          1.0901598059612772,
+          1.0929944909137228
+        ],
+        "fa4_dense_pack_1cta": [
+          0.9192531559017155,
+          0.9243943839237607,
+          0.9201507568359375
+        ],
+        "fa4_dense_unpack_1cta": [
+          0.893143133068761,
+          0.8950812157164229,
+          0.8945562189275568
+        ]
+      },
+      "median_ms": {
+        "ours": 0.1402059140412704,
+        "fa4_q2_pack": 0.3083909891419492,
+        "fa4_q2_unpack": 0.34741293589274086,
+        "fa4_q1_pack": 0.16083084811839454,
+        "fa4_q1_unpack": 0.159303482393082,
+        "fa4_dense_pack_autocta": 1.0901747881355932,
+        "fa4_dense_unpack_autocta": 1.0917005867793643,
+        "fa4_dense_pack_1cta": 0.9201507568359375,
+        "fa4_dense_unpack_1cta": 0.8945562189275568
+      },
+      "measurement_orders": [
+        [
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta"
+        ],
+        [
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours"
+        ],
+        [
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack"
+        ]
+      ],
+      "best_fa4_sparse": "fa4_q1_unpack",
+      "best_fa4_dense": "fa4_dense_unpack_1cta",
+      "speedup_vs_best_fa4_sparse": 1.1362108615916882,
+      "speedup_vs_best_fa4_dense": 6.3803030353215995,
+      "sparse_qk_pv_flops": 137438953472,
+      "dense_qk_pv_flops": 1099511627776,
+      "our_useful_tflops": 980.2650224265437,
+      "gpu_after": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 66, 966.07 W, 1965 MHz, 3996 MHz, P0",
+        "stderr": ""
+      },
+      "post_graph_correctness": {
+        "ours": {
+          "max_abs": 0.001108407974243164,
+          "rmse": 8.556462853448465e-05,
+          "relative_l2": 0.0023271834943443537,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.0012415945529937744,
+          "rmse": 8.557592082070187e-05,
+          "relative_l2": 0.002327490597963333,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.0012415945529937744,
+          "rmse": 8.557051478419453e-05,
+          "relative_l2": 0.0023273436818271875,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.0012415945529937744,
+          "rmse": 8.555796375731006e-05,
+          "relative_l2": 0.002327002352103591,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.0012415945529937744,
+          "rmse": 8.55543403304182e-05,
+          "relative_l2": 0.0023269038647413254,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_autocta": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.063015537918545e-05,
+          "relative_l2": 0.0023181079886853695,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_autocta": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.063015537918545e-05,
+          "relative_l2": 0.0023181079886853695,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_1cta": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.063015537918545e-05,
+          "relative_l2": 0.0023181079886853695,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_1cta": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.062282848986797e-05,
+          "relative_l2": 0.0023175536189228296,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "elapsed_seconds": 35.749444828
+    },
+    {
+      "shape": {
+        "batch": 2,
+        "hq": 16,
+        "hkv": 1,
+        "sq": 4096,
+        "skv": 16384
+      },
+      "pattern": "paired",
+      "seed": 17,
+      "qk_scale": 1.0,
+      "reverse_ids": false,
+      "topk": 16,
+      "block_size": 128,
+      "dim": 128,
+      "dtype": "BF16",
+      "causal": false,
+      "selected_sha256": "af71ae3eef2f78c1761474fd7ffa25e28270826e6a66823c10f6b352dc6e57ad",
+      "input_sha256": {
+        "q": "ae35073b3554ff876a32336c74bbe6bcc208198b94dc40bb9065bcfcf3f3c15e",
+        "k": "1581ba3b09acadedde7f2940a685cd8b24649cedf055c8871584542f484d5e56",
+        "v": "002ec02ec77944c4b8de518f17b1b1a4e189abd93d464c47523693a64e39ef72"
+      },
+      "reference": "full independent FP32 QK/softmax/PV; TF32 disabled",
+      "our_work_items": 512,
+      "gpu_sm_count": 148,
+      "correctness": {
+        "ours_vs_fp32": {
+          "max_abs": 0.0012531280517578125,
+          "rmse": 8.53937235660851e-05,
+          "relative_l2": 0.002331553725525737,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_vs_fp32": {
+          "max_abs": 0.001893758773803711,
+          "rmse": 8.54146055644378e-05,
+          "relative_l2": 0.002332123927772045,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011481317051220685,
+          "relative_l2": 0.0031348285265266895,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q2_unpack_vs_fp32": {
+          "max_abs": 0.001893758773803711,
+          "rmse": 8.5408755694516e-05,
+          "relative_l2": 0.0023319642059504986,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011480270768515766,
+          "relative_l2": 0.0031345428433269262,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q1_pack_vs_fp32": {
+          "max_abs": 0.001893758773803711,
+          "rmse": 8.54146055644378e-05,
+          "relative_l2": 0.002332123927772045,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011481317051220685,
+          "relative_l2": 0.0031348285265266895,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q1_unpack_vs_fp32": {
+          "max_abs": 0.001893758773803711,
+          "rmse": 8.5408755694516e-05,
+          "relative_l2": 0.0023319642059504986,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011480270768515766,
+          "relative_l2": 0.0031345428433269262,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_dense_pack_autocta_vs_fp32": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.063015537918545e-05,
+          "relative_l2": 0.0023181079886853695,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_autocta_vs_fp32": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.063015537918545e-05,
+          "relative_l2": 0.0023181079886853695,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_1cta_vs_fp32": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.063015537918545e-05,
+          "relative_l2": 0.0023181079886853695,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_1cta_vs_fp32": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.062282848986797e-05,
+          "relative_l2": 0.0023175536189228296,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "configs": {
+        "fa4_q2_pack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 2,
+            "sparse_block_size": [
+              256,
+              128
+            ],
+            "full_block_count": 512,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 1.0,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": true,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q2_unpack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 2,
+            "sparse_block_size": [
+              256,
+              128
+            ],
+            "full_block_count": 512,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 1.0,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": true,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q1_pack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 1,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": true,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 1,
+            "sparse_block_size": [
+              128,
+              128
+            ],
+            "full_block_count": 1024,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 1.0,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q1_unpack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 1,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": true,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 1,
+            "sparse_block_size": [
+              128,
+              128
+            ],
+            "full_block_count": 1024,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 1.0,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_pack_autocta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_unpack_autocta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_pack_1cta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": true
+        },
+        "fa4_dense_unpack_1cta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": true
+        }
+      },
+      "gpu_before": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 57, 868.60 W, 1965 MHz, 3996 MHz, P0",
+        "stderr": ""
+      },
+      "samples_ms": {
+        "ours": [
+          0.1390862933141674,
+          0.13910616288273972,
+          0.1389675637950068
+        ],
+        "fa4_q2_pack": [
+          0.1242825135100554,
+          0.12415311259608115,
+          0.12456240871366543
+        ],
+        "fa4_q2_unpack": [
+          0.12266262488184448,
+          0.12279236075273475,
+          0.12284977638265959
+        ],
+        "fa4_q1_pack": [
+          0.16030169887571236,
+          0.16040521459194576,
+          0.16050623134224715
+        ],
+        "fa4_q1_unpack": [
+          0.1556195405363305,
+          0.15566793804519746,
+          0.15582974595578356
+        ],
+        "fa4_dense_pack_autocta": [
+          1.096665592516883,
+          1.0964320256159856,
+          1.0984949661513506
+        ],
+        "fa4_dense_unpack_autocta": [
+          1.0946589687414336,
+          1.0943808973881237,
+          1.095922637404057
+        ],
+        "fa4_dense_pack_1cta": [
+          0.9184394731913528,
+          0.9191657296062385,
+          0.9207233297413793
+        ],
+        "fa4_dense_unpack_1cta": [
+          0.8942712058483715,
+          0.8946091557892275,
+          0.8959708017845677
+        ]
+      },
+      "median_ms": {
+        "ours": 0.1390862933141674,
+        "fa4_q2_pack": 0.1242825135100554,
+        "fa4_q2_unpack": 0.12279236075273475,
+        "fa4_q1_pack": 0.16040521459194576,
+        "fa4_q1_unpack": 0.15566793804519746,
+        "fa4_dense_pack_autocta": 1.096665592516883,
+        "fa4_dense_unpack_autocta": 1.0946589687414336,
+        "fa4_dense_pack_1cta": 0.9191657296062385,
+        "fa4_dense_unpack_1cta": 0.8946091557892275
+      },
+      "measurement_orders": [
+        [
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta"
+        ],
+        [
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours"
+        ],
+        [
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack"
+        ]
+      ],
+      "best_fa4_sparse": "fa4_q2_unpack",
+      "best_fa4_dense": "fa4_dense_unpack_1cta",
+      "speedup_vs_best_fa4_sparse": 0.8828501919694705,
+      "speedup_vs_best_fa4_dense": 6.432043981274913,
+      "sparse_qk_pv_flops": 137438953472,
+      "dense_qk_pv_flops": 1099511627776,
+      "our_useful_tflops": 988.1559871723206,
+      "gpu_after": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 67, 986.73 W, 1642 MHz, 3996 MHz, P0",
+        "stderr": ""
+      },
+      "post_graph_correctness": {
+        "ours": {
+          "max_abs": 0.0012531280517578125,
+          "rmse": 8.53937235660851e-05,
+          "relative_l2": 0.002331553725525737,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.001893758773803711,
+          "rmse": 8.54146055644378e-05,
+          "relative_l2": 0.002332123927772045,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.001893758773803711,
+          "rmse": 8.5408755694516e-05,
+          "relative_l2": 0.0023319642059504986,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.001893758773803711,
+          "rmse": 8.54146055644378e-05,
+          "relative_l2": 0.002332123927772045,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.001893758773803711,
+          "rmse": 8.5408755694516e-05,
+          "relative_l2": 0.0023319642059504986,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_autocta": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.063015537918545e-05,
+          "relative_l2": 0.0023181079886853695,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_autocta": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.063015537918545e-05,
+          "relative_l2": 0.0023181079886853695,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_1cta": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.063015537918545e-05,
+          "relative_l2": 0.0023181079886853695,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_1cta": {
+          "max_abs": 0.0002625584602355957,
+          "rmse": 3.062282848986797e-05,
+          "relative_l2": 0.0023175536189228296,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "elapsed_seconds": 34.909104796
+    },
+    {
+      "shape": {
+        "batch": 2,
+        "hq": 16,
+        "hkv": 1,
+        "sq": 4096,
+        "skv": 16384
+      },
+      "pattern": "paired",
+      "seed": 29,
+      "qk_scale": 1.0,
+      "reverse_ids": false,
+      "topk": 16,
+      "block_size": 128,
+      "dim": 128,
+      "dtype": "BF16",
+      "causal": false,
+      "selected_sha256": "bc34b38961aea488d22069bbc04134963a40f9c634d2c0b10b70b9deae85660d",
+      "input_sha256": {
+        "q": "2762b66d83c7acae7bdda4331bfbc84f467d7aaafa181af16a5051d87539c36a",
+        "k": "830aa0df11c43bd7aefc55bdf238e591fa1947f0c5c6ef3ac086f69a73b075b8",
+        "v": "c8238ff5657b3cd9db7b1c1cea4c67568f4b6a7778cc581fe2d8381fdafc4946"
+      },
+      "reference": "full independent FP32 QK/softmax/PV; TF32 disabled",
+      "our_work_items": 512,
+      "gpu_sm_count": 148,
+      "correctness": {
+        "ours_vs_fp32": {
+          "max_abs": 0.0011986196041107178,
+          "rmse": 8.539692498743534e-05,
+          "relative_l2": 0.0023345088120549917,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_vs_fp32": {
+          "max_abs": 0.001479029655456543,
+          "rmse": 8.536662062397227e-05,
+          "relative_l2": 0.0023336804006248713,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011479885870357975,
+          "relative_l2": 0.0031382960733026266,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q2_unpack_vs_fp32": {
+          "max_abs": 0.001479029655456543,
+          "rmse": 8.536141103832051e-05,
+          "relative_l2": 0.002333537908270955,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011478325905045494,
+          "relative_l2": 0.0031378695275634527,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q1_pack_vs_fp32": {
+          "max_abs": 0.001479029655456543,
+          "rmse": 8.536662062397227e-05,
+          "relative_l2": 0.0023336804006248713,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011479885870357975,
+          "relative_l2": 0.0031382960733026266,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q1_unpack_vs_fp32": {
+          "max_abs": 0.001479029655456543,
+          "rmse": 8.536141103832051e-05,
+          "relative_l2": 0.002333537908270955,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011478325905045494,
+          "relative_l2": 0.0031378695275634527,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_dense_pack_autocta_vs_fp32": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0444309231825173e-05,
+          "relative_l2": 0.0023323139175772667,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_autocta_vs_fp32": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0444309231825173e-05,
+          "relative_l2": 0.0023323139175772667,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_1cta_vs_fp32": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0444309231825173e-05,
+          "relative_l2": 0.0023323139175772667,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_1cta_vs_fp32": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0441695344052278e-05,
+          "relative_l2": 0.0023321136832237244,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "configs": {
+        "fa4_q2_pack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 2,
+            "sparse_block_size": [
+              256,
+              128
+            ],
+            "full_block_count": 512,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 1.0,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": true,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q2_unpack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 2,
+            "sparse_block_size": [
+              256,
+              128
+            ],
+            "full_block_count": 512,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 1.0,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": true,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q1_pack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 1,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": true,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 1,
+            "sparse_block_size": [
+              128,
+              128
+            ],
+            "full_block_count": 1024,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 1.0,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q1_unpack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 1,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": true,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 1,
+            "sparse_block_size": [
+              128,
+              128
+            ],
+            "full_block_count": 1024,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 1.0,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_pack_autocta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_unpack_autocta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_pack_1cta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": true
+        },
+        "fa4_dense_unpack_1cta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": true
+        }
+      },
+      "gpu_before": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 58, 880.84 W, 1965 MHz, 3996 MHz, P0",
+        "stderr": ""
+      },
+      "samples_ms": {
+        "ours": [
+          0.13868941974997073,
+          0.13870553024833615,
+          0.13879940575197747
+        ],
+        "fa4_q2_pack": [
+          0.12452105250591743,
+          0.124574007043516,
+          0.12521420378099726
+        ],
+        "fa4_q2_unpack": [
+          0.12363987284718841,
+          0.12365141053130661,
+          0.12416777395312116
+        ],
+        "fa4_q1_pack": [
+          0.16045197094876343,
+          0.16043659307431246,
+          0.16052594767436723
+        ],
+        "fa4_q1_unpack": [
+          0.15642353830162,
+          0.15628367193437612,
+          0.15664835399007562
+        ],
+        "fa4_dense_pack_autocta": [
+          1.0952011499649439,
+          1.0978109068789725,
+          1.097598447638043
+        ],
+        "fa4_dense_unpack_autocta": [
+          1.0952409443102384,
+          1.0963864912066543,
+          1.0990998117547286
+        ],
+        "fa4_dense_pack_1cta": [
+          0.9202071617389548,
+          0.9209360832715556,
+          0.92288154279682
+        ],
+        "fa4_dense_unpack_1cta": [
+          0.8946498032157303,
+          0.8937388066645269,
+          0.8942031319259752
+        ]
+      },
+      "median_ms": {
+        "ours": 0.13870553024833615,
+        "fa4_q2_pack": 0.124574007043516,
+        "fa4_q2_unpack": 0.12365141053130661,
+        "fa4_q1_pack": 0.16045197094876343,
+        "fa4_q1_unpack": 0.15642353830162,
+        "fa4_dense_pack_autocta": 1.097598447638043,
+        "fa4_dense_unpack_autocta": 1.0963864912066543,
+        "fa4_dense_pack_1cta": 0.9209360832715556,
+        "fa4_dense_unpack_1cta": 0.8942031319259752
+      },
+      "measurement_orders": [
+        [
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack"
+        ],
+        [
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack"
+        ],
+        [
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack"
+        ]
+      ],
+      "best_fa4_sparse": "fa4_q2_unpack",
+      "best_fa4_dense": "fa4_dense_unpack_1cta",
+      "speedup_vs_best_fa4_sparse": 0.8914670547736858,
+      "speedup_vs_best_fa4_dense": 6.446773465520865,
+      "sparse_qk_pv_flops": 137438953472,
+      "dense_qk_pv_flops": 1099511627776,
+      "our_useful_tflops": 990.8685920880841,
+      "gpu_after": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 67, 987.88 W, 1807 MHz, 3996 MHz, P0",
+        "stderr": ""
+      },
+      "post_graph_correctness": {
+        "ours": {
+          "max_abs": 0.0011986196041107178,
+          "rmse": 8.539692498743534e-05,
+          "relative_l2": 0.0023345088120549917,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.001479029655456543,
+          "rmse": 8.536662062397227e-05,
+          "relative_l2": 0.0023336804006248713,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.001479029655456543,
+          "rmse": 8.536141103832051e-05,
+          "relative_l2": 0.002333537908270955,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.001479029655456543,
+          "rmse": 8.536662062397227e-05,
+          "relative_l2": 0.0023336804006248713,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.001479029655456543,
+          "rmse": 8.536141103832051e-05,
+          "relative_l2": 0.002333537908270955,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_autocta": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0444309231825173e-05,
+          "relative_l2": 0.0023323139175772667,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_autocta": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0444309231825173e-05,
+          "relative_l2": 0.0023323139175772667,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_1cta": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0444309231825173e-05,
+          "relative_l2": 0.0023323139175772667,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_1cta": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0441695344052278e-05,
+          "relative_l2": 0.0023321136832237244,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "elapsed_seconds": 34.78260697
+    },
+    {
+      "shape": {
+        "batch": 2,
+        "hq": 16,
+        "hkv": 1,
+        "sq": 4096,
+        "skv": 16384
+      },
+      "pattern": "independent",
+      "seed": 29,
+      "qk_scale": 1.0,
+      "reverse_ids": false,
+      "topk": 16,
+      "block_size": 128,
+      "dim": 128,
+      "dtype": "BF16",
+      "causal": false,
+      "selected_sha256": "2e21df4d6f331db04c1a279e24b8f3b2c1748044e2ccac0e4c520c19222388da",
+      "input_sha256": {
+        "q": "2762b66d83c7acae7bdda4331bfbc84f467d7aaafa181af16a5051d87539c36a",
+        "k": "830aa0df11c43bd7aefc55bdf238e591fa1947f0c5c6ef3ac086f69a73b075b8",
+        "v": "c8238ff5657b3cd9db7b1c1cea4c67568f4b6a7778cc581fe2d8381fdafc4946"
+      },
+      "reference": "full independent FP32 QK/softmax/PV; TF32 disabled",
+      "our_work_items": 512,
+      "gpu_sm_count": 148,
+      "correctness": {
+        "ours_vs_fp32": {
+          "max_abs": 0.0013048350811004639,
+          "rmse": 8.525555313099176e-05,
+          "relative_l2": 0.0023353598080575466,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_vs_fp32": {
+          "max_abs": 0.0011163651943206787,
+          "rmse": 8.524460281478241e-05,
+          "relative_l2": 0.0023350599221885204,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011465213901828974,
+          "relative_l2": 0.0031406169291585684,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q2_unpack_vs_fp32": {
+          "max_abs": 0.0011163651943206787,
+          "rmse": 8.525033626938239e-05,
+          "relative_l2": 0.002335216850042343,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011467052536318079,
+          "relative_l2": 0.0031411205418407917,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q1_pack_vs_fp32": {
+          "max_abs": 0.001164257526397705,
+          "rmse": 8.524092118022963e-05,
+          "relative_l2": 0.0023349591065198183,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.0001146550930570811,
+          "relative_l2": 0.00314069795422256,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q1_unpack_vs_fp32": {
+          "max_abs": 0.001164257526397705,
+          "rmse": 8.524704753654078e-05,
+          "relative_l2": 0.002335126744583249,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011466671276139095,
+          "relative_l2": 0.0031410162337124348,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_dense_pack_autocta_vs_fp32": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0444309231825173e-05,
+          "relative_l2": 0.0023323139175772667,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_autocta_vs_fp32": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0444309231825173e-05,
+          "relative_l2": 0.0023323139175772667,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_1cta_vs_fp32": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0444309231825173e-05,
+          "relative_l2": 0.0023323139175772667,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_1cta_vs_fp32": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0441695344052278e-05,
+          "relative_l2": 0.0023321136832237244,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "configs": {
+        "fa4_q2_pack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 2,
+            "sparse_block_size": [
+              256,
+              128
+            ],
+            "full_block_count": 62,
+            "partial_block_count": 900,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1924,
+            "union_schedule_work_ratio": 1.87890625,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 0.12109375,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": true,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q2_unpack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 2,
+            "sparse_block_size": [
+              256,
+              128
+            ],
+            "full_block_count": 62,
+            "partial_block_count": 900,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1924,
+            "union_schedule_work_ratio": 1.87890625,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 0.12109375,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": true,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q1_pack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 1,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": true,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 1,
+            "sparse_block_size": [
+              128,
+              128
+            ],
+            "full_block_count": 1024,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 0.12109375,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q1_unpack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 1,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": true,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 1,
+            "sparse_block_size": [
+              128,
+              128
+            ],
+            "full_block_count": 1024,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 0.12109375,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_pack_autocta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_unpack_autocta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_pack_1cta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": true
+        },
+        "fa4_dense_unpack_1cta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": true
+        }
+      },
+      "gpu_before": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 58, 886.87 W, 1965 MHz, 3996 MHz, P0",
+        "stderr": ""
+      },
+      "samples_ms": {
+        "ours": [
+          0.1402705506508395,
+          0.14033896932017073,
+          0.14003963470458985
+        ],
+        "fa4_q2_pack": [
+          0.3079751534145916,
+          0.3079971574310564,
+          0.3079516276158929
+        ],
+        "fa4_q2_unpack": [
+          0.3436364208042786,
+          0.3436051882230319,
+          0.34358370435106883
+        ],
+        "fa4_q1_pack": [
+          0.1609585627456384,
+          0.1611443906841856,
+          0.1611321675028778
+        ],
+        "fa4_q1_unpack": [
+          0.1601365936468847,
+          0.16016556700253817,
+          0.160069581592645
+        ],
+        "fa4_dense_pack_autocta": [
+          1.0977328047793136,
+          1.0983798035189636,
+          1.0981521606445312
+        ],
+        "fa4_dense_unpack_autocta": [
+          1.0986429629118546,
+          1.0977437558381453,
+          1.0968704887058425
+        ],
+        "fa4_dense_pack_1cta": [
+          0.9219364532052654,
+          0.9207999393857759,
+          0.9221410881983091
+        ],
+        "fa4_dense_unpack_1cta": [
+          0.8949292500813802,
+          0.8946564992268881,
+          0.8947588873247728
+        ]
+      },
+      "median_ms": {
+        "ours": 0.1402705506508395,
+        "fa4_q2_pack": 0.3079751534145916,
+        "fa4_q2_unpack": 0.3436051882230319,
+        "fa4_q1_pack": 0.1611321675028778,
+        "fa4_q1_unpack": 0.1601365936468847,
+        "fa4_dense_pack_autocta": 1.0981521606445312,
+        "fa4_dense_unpack_autocta": 1.0977437558381453,
+        "fa4_dense_pack_1cta": 0.9219364532052654,
+        "fa4_dense_unpack_1cta": 0.8947588873247728
+      },
+      "measurement_orders": [
+        [
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack"
+        ],
+        [
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack"
+        ],
+        [
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack"
+        ]
+      ],
+      "best_fa4_sparse": "fa4_q1_unpack",
+      "best_fa4_dense": "fa4_dense_unpack_1cta",
+      "speedup_vs_best_fa4_sparse": 1.1416266130265336,
+      "speedup_vs_best_fa4_dense": 6.378807833669953,
+      "sparse_qk_pv_flops": 137438953472,
+      "dense_qk_pv_flops": 1099511627776,
+      "our_useful_tflops": 979.8133167247067,
+      "gpu_after": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 66, 991.96 W, 1762 MHz, 3996 MHz, P0",
+        "stderr": ""
+      },
+      "post_graph_correctness": {
+        "ours": {
+          "max_abs": 0.0013048350811004639,
+          "rmse": 8.525555313099176e-05,
+          "relative_l2": 0.0023353598080575466,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.0011163651943206787,
+          "rmse": 8.524460281478241e-05,
+          "relative_l2": 0.0023350599221885204,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.0011163651943206787,
+          "rmse": 8.525033626938239e-05,
+          "relative_l2": 0.002335216850042343,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.001164257526397705,
+          "rmse": 8.524092118022963e-05,
+          "relative_l2": 0.0023349591065198183,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.001164257526397705,
+          "rmse": 8.524704753654078e-05,
+          "relative_l2": 0.002335126744583249,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_autocta": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0444309231825173e-05,
+          "relative_l2": 0.0023323139175772667,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_autocta": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0444309231825173e-05,
+          "relative_l2": 0.0023323139175772667,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_1cta": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0444309231825173e-05,
+          "relative_l2": 0.0023323139175772667,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_1cta": {
+          "max_abs": 0.00030547380447387695,
+          "rmse": 3.0441695344052278e-05,
+          "relative_l2": 0.0023321136832237244,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "elapsed_seconds": 35.170179948
+    },
+    {
+      "shape": {
+        "batch": 2,
+        "hq": 16,
+        "hkv": 1,
+        "sq": 4096,
+        "skv": 16384
+      },
+      "pattern": "independent",
+      "seed": 41,
+      "qk_scale": 1.0,
+      "reverse_ids": false,
+      "topk": 16,
+      "block_size": 128,
+      "dim": 128,
+      "dtype": "BF16",
+      "causal": false,
+      "selected_sha256": "7e09bda6346e774f89ee3aa68612b8098b2dfd05571e1c4e8abf2d1f90ccc0f6",
+      "input_sha256": {
+        "q": "f2756f802a7ba7cc6623192d854abbb0683e9627d758daed06999988158d83f5",
+        "k": "0afb5dd5b18093d38e869ab1cdeb822ae44e767871e0ce6f19b8ad11d34d5719",
+        "v": "577ded303a27f0e93e9cf2e49ecef141b3fb497a541a6cbdfd23765b852ca498"
+      },
+      "reference": "full independent FP32 QK/softmax/PV; TF32 disabled",
+      "our_work_items": 512,
+      "gpu_sm_count": 148,
+      "correctness": {
+        "ours_vs_fp32": {
+          "max_abs": 0.001537233591079712,
+          "rmse": 8.530509512638673e-05,
+          "relative_l2": 0.0023367784451693296,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_vs_fp32": {
+          "max_abs": 0.001256793737411499,
+          "rmse": 8.529258775524795e-05,
+          "relative_l2": 0.002336435718461871,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011469918536022305,
+          "relative_l2": 0.003141992259770632,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q2_unpack_vs_fp32": {
+          "max_abs": 0.001256793737411499,
+          "rmse": 8.529103797627613e-05,
+          "relative_l2": 0.002336393343284726,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011468512093415484,
+          "relative_l2": 0.0031416069250553846,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q1_pack_vs_fp32": {
+          "max_abs": 0.001256793737411499,
+          "rmse": 8.527947647962719e-05,
+          "relative_l2": 0.002336076693609357,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011468728916952386,
+          "relative_l2": 0.0031416662968695164,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q1_unpack_vs_fp32": {
+          "max_abs": 0.001256793737411499,
+          "rmse": 8.527982572559267e-05,
+          "relative_l2": 0.0023360862396657467,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011467747390270233,
+          "relative_l2": 0.00314139761030674,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_dense_pack_autocta_vs_fp32": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.976146606670227e-05,
+          "relative_l2": 0.0023872223682701588,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_autocta_vs_fp32": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.976146606670227e-05,
+          "relative_l2": 0.0023872223682701588,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_1cta_vs_fp32": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.976146606670227e-05,
+          "relative_l2": 0.0023872223682701588,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_1cta_vs_fp32": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.9764141800114885e-05,
+          "relative_l2": 0.0023874372709542513,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "configs": {
+        "fa4_q2_pack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 2,
+            "sparse_block_size": [
+              256,
+              128
+            ],
+            "full_block_count": 62,
+            "partial_block_count": 900,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1924,
+            "union_schedule_work_ratio": 1.87890625,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 0.12109375,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": true,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q2_unpack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 2,
+            "sparse_block_size": [
+              256,
+              128
+            ],
+            "full_block_count": 62,
+            "partial_block_count": 900,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1924,
+            "union_schedule_work_ratio": 1.87890625,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 0.12109375,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": true,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q1_pack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 1,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": true,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 1,
+            "sparse_block_size": [
+              128,
+              128
+            ],
+            "full_block_count": 1024,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 0.12109375,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q1_unpack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 1,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": true,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 1,
+            "sparse_block_size": [
+              128,
+              128
+            ],
+            "full_block_count": 1024,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 0.12109375,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_pack_autocta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_unpack_autocta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_pack_1cta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": true
+        },
+        "fa4_dense_unpack_1cta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": true
+        }
+      },
+      "gpu_before": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 57, 872.89 W, 1965 MHz, 3996 MHz, P0",
+        "stderr": ""
+      },
+      "samples_ms": {
+        "ours": [
+          0.14044923710643797,
+          0.1404285836727061,
+          0.14037259263547106
+        ],
+        "fa4_q2_pack": [
+          0.31012174939699366,
+          0.3101399593845138,
+          0.3101318490539376
+        ],
+        "fa4_q2_unpack": [
+          0.34803395815878524,
+          0.34766334809964744,
+          0.3479406992594401
+        ],
+        "fa4_q1_pack": [
+          0.16129818078243371,
+          0.16127499919905264,
+          0.16142171100505348
+        ],
+        "fa4_q1_unpack": [
+          0.15995346126060062,
+          0.15993722594610535,
+          0.16002488106820728
+        ],
+        "fa4_dense_pack_autocta": [
+          1.0974444527911325,
+          1.0981641309014682,
+          1.0974288027510684
+        ],
+        "fa4_dense_unpack_autocta": [
+          1.0997503662109376,
+          1.0973046344259512,
+          1.0983840540835732
+        ],
+        "fa4_dense_pack_1cta": [
+          0.9232746760050455,
+          0.9281081078757702,
+          0.9236021041870117
+        ],
+        "fa4_dense_unpack_1cta": [
+          0.8945970467641844,
+          0.8974842071533203,
+          0.8945697460299223
+        ]
+      },
+      "median_ms": {
+        "ours": 0.1404285836727061,
+        "fa4_q2_pack": 0.3101318490539376,
+        "fa4_q2_unpack": 0.3479406992594401,
+        "fa4_q1_pack": 0.16129818078243371,
+        "fa4_q1_unpack": 0.15995346126060062,
+        "fa4_dense_pack_autocta": 1.0974444527911325,
+        "fa4_dense_unpack_autocta": 1.0983840540835732,
+        "fa4_dense_pack_1cta": 0.9236021041870117,
+        "fa4_dense_unpack_1cta": 0.8945970467641844
+      },
+      "measurement_orders": [
+        [
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta"
+        ],
+        [
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta"
+        ],
+        [
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta"
+        ]
+      ],
+      "best_fa4_sparse": "fa4_q1_unpack",
+      "best_fa4_dense": "fa4_dense_unpack_1cta",
+      "speedup_vs_best_fa4_sparse": 1.139037773345352,
+      "speedup_vs_best_fa4_dense": 6.370476888446034,
+      "sparse_qk_pv_flops": 137438953472,
+      "dense_qk_pv_flops": 1099511627776,
+      "our_useful_tflops": 978.7106718410408,
+      "gpu_after": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 67, 982.22 W, 1552 MHz, 3996 MHz, P0",
+        "stderr": ""
+      },
+      "post_graph_correctness": {
+        "ours": {
+          "max_abs": 0.001537233591079712,
+          "rmse": 8.530509512638673e-05,
+          "relative_l2": 0.0023367784451693296,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.001256793737411499,
+          "rmse": 8.529258775524795e-05,
+          "relative_l2": 0.002336435718461871,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.001256793737411499,
+          "rmse": 8.529103797627613e-05,
+          "relative_l2": 0.002336393343284726,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.001256793737411499,
+          "rmse": 8.527947647962719e-05,
+          "relative_l2": 0.002336076693609357,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.001256793737411499,
+          "rmse": 8.527982572559267e-05,
+          "relative_l2": 0.0023360862396657467,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_autocta": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.976146606670227e-05,
+          "relative_l2": 0.0023872223682701588,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_autocta": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.976146606670227e-05,
+          "relative_l2": 0.0023872223682701588,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_1cta": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.976146606670227e-05,
+          "relative_l2": 0.0023872223682701588,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_1cta": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.9764141800114885e-05,
+          "relative_l2": 0.0023874372709542513,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "elapsed_seconds": 35.24848251300003
+    },
+    {
+      "shape": {
+        "batch": 2,
+        "hq": 16,
+        "hkv": 1,
+        "sq": 4096,
+        "skv": 16384
+      },
+      "pattern": "paired",
+      "seed": 41,
+      "qk_scale": 1.0,
+      "reverse_ids": false,
+      "topk": 16,
+      "block_size": 128,
+      "dim": 128,
+      "dtype": "BF16",
+      "causal": false,
+      "selected_sha256": "8b57e30832210e17af91eda5fba5ba169d66a2d18db3c6d5f254bc615e2429ae",
+      "input_sha256": {
+        "q": "f2756f802a7ba7cc6623192d854abbb0683e9627d758daed06999988158d83f5",
+        "k": "0afb5dd5b18093d38e869ab1cdeb822ae44e767871e0ce6f19b8ad11d34d5719",
+        "v": "577ded303a27f0e93e9cf2e49ecef141b3fb497a541a6cbdfd23765b852ca498"
+      },
+      "reference": "full independent FP32 QK/softmax/PV; TF32 disabled",
+      "our_work_items": 512,
+      "gpu_sm_count": 148,
+      "correctness": {
+        "ours_vs_fp32": {
+          "max_abs": 0.001397252082824707,
+          "rmse": 8.523715223418549e-05,
+          "relative_l2": 0.002338372403755784,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_vs_fp32": {
+          "max_abs": 0.0009864121675491333,
+          "rmse": 8.523058204445988e-05,
+          "relative_l2": 0.0023381919600069523,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011456407810328528,
+          "relative_l2": 0.003142937319353223,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q2_unpack_vs_fp32": {
+          "max_abs": 0.0010174214839935303,
+          "rmse": 8.523502037860453e-05,
+          "relative_l2": 0.0023383137304335833,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011457272921688855,
+          "relative_l2": 0.003143174573779106,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q1_pack_vs_fp32": {
+          "max_abs": 0.0009864121675491333,
+          "rmse": 8.523058204445988e-05,
+          "relative_l2": 0.0023381919600069523,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011456407810328528,
+          "relative_l2": 0.003142937319353223,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_q1_unpack_vs_fp32": {
+          "max_abs": 0.0010174214839935303,
+          "rmse": 8.523502037860453e-05,
+          "relative_l2": 0.0023383137304335833,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_vs_ours": {
+          "max_abs": 0.001953125,
+          "rmse": 0.00011457272921688855,
+          "relative_l2": 0.003143174573779106,
+          "atol": 0.02,
+          "rtol": 0.02
+        },
+        "fa4_dense_pack_autocta_vs_fp32": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.976146606670227e-05,
+          "relative_l2": 0.0023872223682701588,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_autocta_vs_fp32": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.976146606670227e-05,
+          "relative_l2": 0.0023872223682701588,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_1cta_vs_fp32": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.976146606670227e-05,
+          "relative_l2": 0.0023872223682701588,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_1cta_vs_fp32": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.9764141800114885e-05,
+          "relative_l2": 0.0023874372709542513,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "configs": {
+        "fa4_q2_pack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 2,
+            "sparse_block_size": [
+              256,
+              128
+            ],
+            "full_block_count": 512,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 1.0,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": true,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q2_unpack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 2,
+            "sparse_block_size": [
+              256,
+              128
+            ],
+            "full_block_count": 512,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 1.0,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": true,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q1_pack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 1,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": true,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 1,
+            "sparse_block_size": [
+              128,
+              128
+            ],
+            "full_block_count": 1024,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 1.0,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_q1_unpack": {
+          "fold_gqa_groups_into_batch": true,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            128,
+            1
+          ],
+          "q_stage": 1,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": true,
+          "observed_compiled_configurations": [],
+          "metadata": {
+            "q_stage": 1,
+            "sparse_block_size": [
+              128,
+              128
+            ],
+            "full_block_count": 1024,
+            "partial_block_count": 0,
+            "useful_q128_kv128_pairs_per_kv_head": 1024,
+            "union_schedule_pair_estimate": 1024,
+            "union_schedule_work_ratio": 1.0,
+            "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+            "mean_adjacent_overlap_fraction": 1.0,
+            "block_lookup_bytes": 8192
+          },
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_pack_autocta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_unpack_autocta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": false
+        },
+        "fa4_dense_pack_1cta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": true,
+          "pack_gqa_expected": true,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": true
+        },
+        "fa4_dense_unpack_1cta": {
+          "fold_gqa_groups_into_batch": false,
+          "physical_q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "physical_k_shape": [
+            2,
+            16384,
+            1,
+            128
+          ],
+          "logical_q_shape": [
+            2,
+            16,
+            4096,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            2048,
+            128,
+            1
+          ],
+          "k_strides": [
+            2097152,
+            128,
+            2097152,
+            1
+          ],
+          "q_stage": 2,
+          "pack_gqa_requested": false,
+          "pack_gqa_expected": false,
+          "num_splits": 1,
+          "q_stage1_python_config_override": false,
+          "observed_compiled_configurations": [],
+          "metadata": null,
+          "block_uniform_vector32_mask": false,
+          "force_disable_2cta_launch_option": true
+        }
+      },
+      "gpu_before": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 58, 870.43 W, 1965 MHz, 3996 MHz, P0",
+        "stderr": ""
+      },
+      "samples_ms": {
+        "ours": [
+          0.13895520902334008,
+          0.13870185436588703,
+          0.13875737946280528
+        ],
+        "fa4_q2_pack": [
+          0.12468267531622024,
+          0.12471330301843216,
+          0.12478482896003171
+        ],
+        "fa4_q2_unpack": [
+          0.1238559449894977,
+          0.12383303693346062,
+          0.12377811516819942
+        ],
+        "fa4_q1_pack": [
+          0.16066180319264195,
+          0.16067892046117072,
+          0.16057807251522332
+        ],
+        "fa4_q1_unpack": [
+          0.15674129708253465,
+          0.15667059046332868,
+          0.156597409929548
+        ],
+        "fa4_dense_pack_autocta": [
+          1.0979336469601362,
+          1.098871522030588,
+          1.098554431882679
+        ],
+        "fa4_dense_unpack_autocta": [
+          1.099457275390625,
+          1.0983636607294498,
+          1.095428864852242
+        ],
+        "fa4_dense_pack_1cta": [
+          0.9213132186674736,
+          0.922183803745083,
+          0.9218832162710336
+        ],
+        "fa4_dense_unpack_1cta": [
+          0.8946190954933704,
+          0.8941349483036495,
+          0.8943489806292808
+        ]
+      },
+      "median_ms": {
+        "ours": 0.13875737946280528,
+        "fa4_q2_pack": 0.12471330301843216,
+        "fa4_q2_unpack": 0.12383303693346062,
+        "fa4_q1_pack": 0.16066180319264195,
+        "fa4_q1_unpack": 0.15667059046332868,
+        "fa4_dense_pack_autocta": 1.098554431882679,
+        "fa4_dense_unpack_autocta": 1.0983636607294498,
+        "fa4_dense_pack_1cta": 0.9218832162710336,
+        "fa4_dense_unpack_1cta": 0.8943489806292808
+      },
+      "measurement_orders": [
+        [
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta"
+        ],
+        [
+          "fa4_dense_pack_1cta",
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta"
+        ],
+        [
+          "fa4_dense_unpack_1cta",
+          "ours",
+          "fa4_q2_pack",
+          "fa4_q2_unpack",
+          "fa4_q1_pack",
+          "fa4_q1_unpack",
+          "fa4_dense_pack_autocta",
+          "fa4_dense_unpack_autocta",
+          "fa4_dense_pack_1cta"
+        ]
+      ],
+      "best_fa4_sparse": "fa4_q2_unpack",
+      "best_fa4_dense": "fa4_dense_unpack_1cta",
+      "speedup_vs_best_fa4_sparse": 0.8924428914186491,
+      "speedup_vs_best_fa4_dense": 6.445415617473636,
+      "sparse_qk_pv_flops": 137438953472,
+      "dense_qk_pv_flops": 1099511627776,
+      "our_useful_tflops": 990.4983360459132,
+      "gpu_after": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 67, 989.05 W, 1582 MHz, 3996 MHz, P0",
+        "stderr": ""
+      },
+      "post_graph_correctness": {
+        "ours": {
+          "max_abs": 0.001397252082824707,
+          "rmse": 8.523715223418549e-05,
+          "relative_l2": 0.002338372403755784,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.0009864121675491333,
+          "rmse": 8.523058204445988e-05,
+          "relative_l2": 0.0023381919600069523,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.0010174214839935303,
+          "rmse": 8.523502037860453e-05,
+          "relative_l2": 0.0023383137304335833,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.0009864121675491333,
+          "rmse": 8.523058204445988e-05,
+          "relative_l2": 0.0023381919600069523,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.0010174214839935303,
+          "rmse": 8.523502037860453e-05,
+          "relative_l2": 0.0023383137304335833,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_autocta": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.976146606670227e-05,
+          "relative_l2": 0.0023872223682701588,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_autocta": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.976146606670227e-05,
+          "relative_l2": 0.0023872223682701588,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_pack_1cta": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.976146606670227e-05,
+          "relative_l2": 0.0023872223682701588,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_dense_unpack_1cta": {
+          "max_abs": 0.0002685636281967163,
+          "rmse": 2.9764141800114885e-05,
+          "relative_l2": 0.0023874372709542513,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "elapsed_seconds": 34.97392900300002
+    }
+  ],
+  "protocol": "p03_fa4_graph8_w250_m1000_r3_seeds17_29_41_v1",
+  "our_version": "p03",
+  "our_source": "sparse/02_gqa_block_sparse.cu",
+  "device": "NVIDIA B200",
+  "gpu_start": {
+    "returncode": 0,
+    "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 39, 198.94 W, 120 MHz, 3996 MHz, P0",
+    "stderr": ""
+  },
+  "torch_version": "2.9.1+cu130",
+  "cuda_version": "13.0",
+  "versions": {
+    "nvidia-cutlass-dsl": "4.6.2",
+    "quack-kernels": "0.6.4",
+    "apache-tvm-ffi": "0.1.12",
+    "torch-c-dlpack-ext": "0.1.5",
+    "triton": "3.5.1"
+  },
+  "timer": {
+    "kind": "CUDA events around CUDA Graph replay",
+    "calls_per_graph": 8,
+    "warmup_ms": 250,
+    "measurement_ms": 1000,
+    "rounds": 3,
+    "cache_regime": "steady-state same-buffer; not cold cache"
+  },
+  "timed_region": "prepared IDs / exact FA4 metadata and preferred layout -> preallocated BF16 O",
+  "excluded": [
+    "indexer",
+    "metadata construction",
+    "layout conversion",
+    "allocations",
+    "input generation",
+    "compilation",
+    "correctness checks"
+  ],
+  "our_cuda_modified": false,
+  "fa4_source_modified": false,
+  "sanitizer_run": false,
+  "model_quality_claim": false,
+  "elapsed_seconds": 211.387719782,
+  "gpu_end": {
+    "returncode": 0,
+    "stdout": "NVIDIA B200, GPU-eb495bbf-e9c1-5512-67e7-055ca4441654, 580.95.05, 61, 946.75 W, 1785 MHz, 3996 MHz, P0",
+    "stderr": ""
+  },
+  "provenance": {
+    "source_sha256": {
+      "main/sparse/checkpoints.py": "5582babef71854024c4c71416a324a33cfbfc315c0b17c48bb9656e94228b095",
+      "main/sparse/progression.py": "49f355fe0397459869f15271bd6e6b5b2c41095fcce399fe189d663940f92d18",
+      "main/sparse/progression_attention.cpp": "964329758bb91eb334d969ed4a2e006c532a93aa8861feb9c8efd9edb1377406",
+      "main/sparse/archive/dense13_progression/01_block_sparse.cu": "625596bbb89855a596b1cd661f607998663b461c52bd0752b4ca39820fb8405c",
+      "main/sparse/01_block_sparse.cu": "623cb831e54c4ddef48485e0b2f17d8befc626f3a852a2b7db64b3cd6b39ae78",
+      "main/sparse/02_gqa_block_sparse.cu": "0b224b2ce92d2192a5dd745cb607e04a73fb4010ebdc7373e3ab350d28268127",
+      "main/sparse/compat/p01_dense13.cu": "29e4451b4449def5ffa766bf8315e213643728562a535f985642638943ea200c",
+      "main/common.cuh": "6b7733687d387a30f7d1587678e0bf1be8337a525454e826ceb1c2e0d57f0156",
+      "main/approximations.cuh": "2690fd181a9471a07021a8b5d4f82a8477b2aab3bcc55fd9535b5170bc43eef4",
+      "main/smem_layout_swizzle128.cuh": "43c70bd38124bc65b0edf4615f153aec8d3b6428dfe2a16a00925a8fec14469b",
+      "helpers/metadata.py": "ba967ad9e7cada8df4f310964f36eeaf579660c686b51924f74d1ead2ce1c306",
+      "helpers/test_metadata.py": "ec2aa9758ea7f423f0018536f9b3d7cfe54496b19aed95a6b6c750631d2b3517",
+      "helpers/benchmark.py": "deee9f88b913b91dc9600e08591509ff1bd888edb72bd07c8a9b92b5a227b49c",
+      "helpers/fa4_adapter.py": "6814087017f308b89f1c07471f9e08d864317222c6461b2cdd799eff6b5f1fe5",
+      "helpers/controls.py": "c8468125cb7285a9a645057590cdcec4a229feb808292816384aa01dda94d0a6",
+      "helpers/modal_runner.py": "e278243e9c1fce119f43f211bb8f24895970114a2c9f20cfa609142302140f25",
+      "experiment/protocol.py": "52c682bbcbc1739c68d2da0e1ef56ec0edeb7ec6a04d58ae49fba5c0912cc6b3",
+      "experiment/current_benchmark.py": "f0ada7a883bc52beb8a695db5bb8882d38e84fb0204593649113ca17a7900ab6",
+      "experiment/run_modal.py": "18875f4e230ff9cd154ec69f90f6e750b0fe7d05266dddd5369542a14a21cac6",
+      "experiment/test_protocol.py": "3171bf0331687126a9f4c56f342b2246057a0cccfa49017ad9419fa54f989f6a"
+    },
+    "fa4_commit": "ce088ab9ce0fc0434dcd8afa0a791da9fcc3a820",
+    "fa4_tracked_tree_clean": true,
+    "fa4_python_sha256": {
+      "__init__.py": "50713012c3a5e8045f368672342aea6eeeb3b3ce0968cb5639b1f158b9499487",
+      "ampere_helpers.py": "cadac170a7da379e27c36d044360480d710cfa88d082dad2b9decd58e4847111",
+      "barrier.py": "767af807aa7521b8d15ee6c9534f4745a7ad2224b0da2b816cc49ccb9ea6c119",
+      "bench_utils.py": "5bd0302c4cd4cd2c3b7e8b1d01eb49d546475d06897678f5543ea2e0172aae84",
+      "benchmark.py": "43bb07eb55d46a402abab8c50984eb39d4cf8f19a11ad79cd0291919614a9101",
+      "benchmark_flash_attention_fp8.py": "7677c981bc5c9f997f8e1a82eacb2e4498ba55a6c6acccdb96196ec2c24ae193",
+      "blackwell_helpers.py": "134679d00bdc93a10b69611269782911812bc0c19f0d30eb472e1d21dd3dc423",
+      "block_info.py": "c7cd78131b43d6a3906e19405236fd7d4d556d626ff4726de571b443c19c00d5",
+      "block_sparse_utils.py": "c3e71e79986e658bb26cffae2d20683e8ad3509c0ee2674fb79fbe35f641c593",
+      "block_sparsity.py": "9331cb2abd4be4da87a74c0839b665d5f914ac6f51cb97491e97b26199668ac9",
+      "cache_utils.py": "ded91c4f65ea434386eacf200cbcc9f1c604ad8b9b7dcbbe80e3264d794c00df",
+      "compute_block_sparsity.py": "88a668f6a418f4bae08c810426d0fd6a43834f7c7cf8653599a62f5c46a4e92c",
+      "copy_utils.py": "0f563eeeb6654602d1541f7202b7b88386c4dbdbd24ad6b0825834d65e508c09",
+      "cu_blocks_kernel.py": "aebbf862f2b90d13f3b1c50ee79ef49ce7babec7f61d37cfcd426bf2ab113a09",
+      "cute_dsl_ptxas.py": "21f0674c9f5a99d7c339092e49d5822d387b0a4673888becff1ac073cb5ac619",
+      "cute_dsl_utils.py": "ea4a3c935dc31d381b969f1b86631eaa44c9e22cc096bd12d130c81a2a1f92bb",
+      "fa_logging.py": "bc71edfa4b1cb7af64b78def09e790ff4c6fe64ab4fcf8e3d9699f44e8d3c0a0",
+      "fast_math.py": "7e5f822bf4d0ba36967558f3ae9a1408b410cb726c31222cd61703569d1be738",
+      "flash_bwd.py": "80cb6bfb436160d73b7214529f94d28b7333c98dff75a53d20552eb33645fea2",
+      "flash_bwd_mla_dk_sm100.py": "10990b4471c9d137726280f8e582c5400ef26b2e85aebaa08097ec00d85f1cff",
+      "flash_bwd_mla_dq_dqv_sm100.py": "84546f26b52ce6cd2887e12711dc26f777ab35d0b9451cf3a7629e6c5c8c358e",
+      "flash_bwd_mla_sm100.py": "7add176d5a739b0fe63597559fe040f7cd58c016ba39716c98f5d6080b3f689e",
+      "flash_bwd_postprocess.py": "df88b299cb938197abc145c3a85262515d1d810633229d0f929239e8291e8ce8",
+      "flash_bwd_preprocess.py": "b43ec797cb57938ee887a1576eb05aff0c1ead686e073ed4f426b47dc7a7c830",
+      "flash_bwd_sm100.py": "448b189cf4a12a67cb1e3efbb7e5eb38b37a2fc921a1835454b6ac679a6bf408",
+      "flash_bwd_sm120.py": "ad2d802c97dbf654fd03724bcfa91702b18acec8518e5dd4a33f137ba238bf7d",
+      "flash_bwd_sm90.py": "2170fcc979bd6843e73fb81133e3af23fc4d73e29b537a41a5e9a3f06492d840",
+      "flash_fwd.py": "e9d890e10611ce48dc57c40570a7b65d1ab802c508f785e5536fb10044db65f3",
+      "flash_fwd_combine.py": "f8e7f1369b892a0e4b6175e2980966348390b0ee3b1014ba195292653ebee1ae",
+      "flash_fwd_mla_sm100.py": "d73a9e5629b2e5af21622763674de63af430740723b84d8cd93c49f2f57392be",
+      "flash_fwd_sm100.py": "f5928a15a7aa559084d14aa12cc2c95efdc89c7b3a1f0d20219b24103a32456f",
+      "flash_fwd_sm120.py": "abd017add69914e46f0fcfc017ad51c3d07d79fd87d15f969036ddd82bcc7da2",
+      "flash_fwd_sm90.py": "0261f8c67cef82cbfb3125637be1ade912fc9afd0ccc33d8bb5e1de9236eef1c",
+      "interface.py": "b0af7198dd03d639f549b70ada9e64f2ab7674936c6a508205190b537d8f45f8",
+      "mask.py": "a59a0ac2d10c6c0e799a08c216f706a3ccca09eba65778ddc6ed0151a0489684",
+      "mma_sm100_desc.py": "ac6ec28b2f1a4b797c391a7807b88f83b430452d418262c3dfa7b0f3516e39f9",
+      "named_barrier.py": "1f80f96b690a2888ee1301d377665db6e9dd74b402f80eaa867d38f7294d813b",
+      "pack_gqa.py": "82ad3a7c44ab4d7b0cffc248aebfedeeadacade8ae2eabb231fddf343e8755cd",
+      "paged_kv.py": "95e84b59b3b3f84cefaa33e477332a9a1f311ef51f42960a3968a0d1eee8665a",
+      "pipeline.py": "849bce91c72be0a5c7458979e10c8290f45e05253a83600e30fb9540c61ed56a",
+      "prepare_scheduler.py": "6823d3033f88acf91d664ce127928d73a37629afd9fd376b03ae76130c180cb8",
+      "seqlen_info.py": "640d2433702635d68d4f0b94e9fa2d6b81da48b7f62056270b1b1fd480c72f30",
+      "sm100_hd256_2cta_fmha_backward.py": "08d65e70c90fcd1927337a2dce42962c9759f66152255135c43073b02df7d07a",
+      "sm100_hd256_2cta_fmha_backward_dkdvkernel.py": "891ec6b0526eeecc9c59b8d43c4d23719d9efd4b8c722d806e0c680ca972801b",
+      "sm100_hd256_2cta_fmha_backward_dqkernel.py": "1aea91ccd068be8b6c88621ba995d86168955bcfc9326fd3c8a94a36db0c4e7f",
+      "sm100_hd256_2cta_fmha_forward.py": "7bc1fefbff85ac503115ee64a61440b1973b91b8c8bca376b25589e964c5f160",
+      "sm90_config_search.py": "bd0ed6094e9fc48de587098f9b05bccbdd5f450b70d3500759a48b5d436cff9c",
+      "softmax.py": "baeefaeed5379fc046180351fe474cdcd6b48fc7f717f2ada8ef950046cdc183",
+      "testing.py": "3342b4475126666e5bff050316cd2a586852f7c82eb23fd21172470cc40a15ff",
+      "tile_scheduler.py": "569393dcbdd91a8c873ebce93e8e9928f1b31d5bd9784fa2303683f1162da0c2",
+      "topk_gather_kv.py": "5897ca804286568310d8bfec219355cacc73b907a805fdbce69a31adbf481460",
+      "utils.py": "c80d6ef6a62d005ac259829cf69c675f5f570ed93768d296e46e210768194c08"
+    },
+    "our_version": "p03",
+    "our_source": "sparse/02_gqa_block_sparse.cu",
+    "our_cuda_sha256": "0b224b2ce92d2192a5dd745cb607e04a73fb4010ebdc7373e3ab350d28268127",
+    "timeout_seconds": 480,
+    "gate_file": "20260918T123745785531Z_gate_4096.json"
+  },
+  "modal_app_id": "ap-fyf2NM4tgjjtUcP3R6FTfP",
+  "remote_elapsed_seconds": 214.417778893
+}

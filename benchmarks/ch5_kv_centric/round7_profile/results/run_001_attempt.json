@@ -1,0 +1,9 @@
+{
+  "status": "finished",
+  "run_id": 1,
+  "mode": "profile",
+  "utc": "2026-09-20T09:57:11.130751+00:00",
+  "call_id": "fc-01M2Z3Z3MTZAKE2JJ36X723694",
+  "passed": true,
+  "result_file": "run_001_profile.json"
+}

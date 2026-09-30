@@ -1,0 +1,3157 @@
+{
+  "passed": true,
+  "mode": "performance",
+  "skv": 4096,
+  "seed_filter": 0,
+  "records": [
+    {
+      "selector": "mean1_bf16",
+      "seed": 17,
+      "proxy_seed": null,
+      "family": "gaussian",
+      "correctness": {
+        "selector": {
+          "score_max_abs": 1.30385160446167e-08,
+          "exact_ids": true,
+          "exact_bf16_descriptors": true
+        },
+        "ours": {
+          "max_abs": 0.002517402172088623,
+          "rmse": 8.590304059907794e-05,
+          "relative_l2": 0.0023189375642687082,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.0019411444664001465,
+          "rmse": 8.591120422352105e-05,
+          "relative_l2": 0.002319157822057605,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.0019411444664001465,
+          "rmse": 8.59112769830972e-05,
+          "relative_l2": 0.0023191599175333977,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.0019411444664001465,
+          "rmse": 8.592561789555475e-05,
+          "relative_l2": 0.0023195468820631504,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.0019411444664001465,
+          "rmse": 8.591885125497356e-05,
+          "relative_l2": 0.0023193643428385258,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "post_graph_correctness": {
+        "selector": {
+          "exact_ids": true
+        },
+        "ours_attention": {
+          "max_abs": 0.002517402172088623,
+          "rmse": 8.590304059907794e-05,
+          "relative_l2": 0.0023189375642687082,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "ours_pipeline": {
+          "max_abs": 0.002517402172088623,
+          "rmse": 8.590304059907794e-05,
+          "relative_l2": 0.0023189375642687082,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_pipeline": {
+          "max_abs": 0.0019411444664001465,
+          "rmse": 8.591120422352105e-05,
+          "relative_l2": 0.002319157822057605,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_pipeline": {
+          "max_abs": 0.0019411444664001465,
+          "rmse": 8.59112769830972e-05,
+          "relative_l2": 0.0023191599175333977,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_pipeline": {
+          "max_abs": 0.0019411444664001465,
+          "rmse": 8.592561789555475e-05,
+          "relative_l2": 0.0023195468820631504,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_pipeline": {
+          "max_abs": 0.0019411444664001465,
+          "rmse": 8.591885125497356e-05,
+          "relative_l2": 0.0023193643428385258,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "selected_sha256": "fd276c3e2c4606f906e6cbb095f505f2c8ba8d0ae1fa0418438bb78b58bbf26c",
+      "qkv_sha256": [
+        "ae35073b3554ff876a32336c74bbe6bcc208198b94dc40bb9065bcfcf3f3c15e",
+        "7047f5cce54bc89a233e4c587a0624f3b79b6562717d71b2286f4c1b406dd4c3",
+        "10e13c1b6de202b6f717b63dbd4b702d798501d76aae4b96c00cfbd199936ca7"
+      ],
+      "mask_stats": {
+        "q_stage": 2,
+        "sparse_block_size": [
+          256,
+          128
+        ],
+        "full_block_count": 274,
+        "partial_block_count": 476,
+        "useful_q128_kv128_pairs_per_kv_head": 1024,
+        "union_schedule_pair_estimate": 1500,
+        "union_schedule_work_ratio": 1.46484375,
+        "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+        "mean_adjacent_overlap_fraction": 0.53515625,
+        "block_lookup_bytes": 2048
+      },
+      "configs": {
+        "fa4_q1_unpack": {
+          "q_stage": 1,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q1_pack": {
+          "q_stage": 1,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_unpack": {
+          "q_stage": 2,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_pack": {
+          "q_stage": 2,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        }
+      },
+      "timing": {
+        "samples_ms": {
+          "selector": [
+            0.020726036896396727,
+            0.020725995525362705,
+            0.02072610141378576
+          ],
+          "ours_attention": [
+            0.14001927461112232,
+            0.1416792347631343,
+            0.14064674642088393
+          ],
+          "ours_pipeline": [
+            0.15508563232421874,
+            0.15506748026481393,
+            0.15514508595907064
+          ],
+          "fa4_q1_unpack_pipeline": [
+            0.17288629132517958,
+            0.17402932714580527,
+            0.17433681096499268
+          ],
+          "fa4_q1_pack_pipeline": [
+            0.17386097131773484,
+            0.1739323399647945,
+            0.17398894372647697
+          ],
+          "fa4_q2_unpack_pipeline": [
+            0.26238682310459976,
+            0.2623592175935444,
+            0.2622223542865954
+          ],
+          "fa4_q2_pack_pipeline": [
+            0.2549924968201437,
+            0.25496445327508643,
+            0.2549936732307809
+          ]
+        },
+        "median_ms": {
+          "selector": 0.020726036896396727,
+          "ours_attention": 0.14064674642088393,
+          "ours_pipeline": 0.15508563232421874,
+          "fa4_q1_unpack_pipeline": 0.17402932714580527,
+          "fa4_q1_pack_pipeline": 0.1739323399647945,
+          "fa4_q2_unpack_pipeline": 0.2623592175935444,
+          "fa4_q2_pack_pipeline": 0.2549924968201437
+        },
+        "orders": [
+          [
+            "selector",
+            "ours_attention",
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline"
+          ],
+          [
+            "selector",
+            "fa4_q2_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "ours_pipeline",
+            "ours_attention"
+          ],
+          [
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention"
+          ]
+        ],
+        "warmup_ms": 250,
+        "measure_ms": 1000,
+        "rounds": 3,
+        "graph_calls": 8
+      },
+      "gpu_state": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-53229ed4-50f0-859f-0278-b6149dbc34e3, 580.95.05, 54, 952.27 W, 1965 MHz, 3996 MHz, P0",
+        "stderr": ""
+      }
+    },
+    {
+      "selector": "mean4_bf16",
+      "seed": 17,
+      "proxy_seed": null,
+      "family": "gaussian",
+      "correctness": {
+        "selector": {
+          "score_max_abs": 5.21540641784668e-08,
+          "exact_ids": true,
+          "exact_bf16_descriptors": true
+        },
+        "ours": {
+          "max_abs": 0.001359701156616211,
+          "rmse": 8.60258296597749e-05,
+          "relative_l2": 0.0023185238242149353,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.0014615654945373535,
+          "rmse": 8.600577712059021e-05,
+          "relative_l2": 0.002317983191460371,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.0013586580753326416,
+          "rmse": 8.60099753481336e-05,
+          "relative_l2": 0.002318096347153187,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.0009274333715438843,
+          "rmse": 8.601327863289043e-05,
+          "relative_l2": 0.00231818575412035,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.0009329915046691895,
+          "rmse": 8.60274230944924e-05,
+          "relative_l2": 0.0023185666650533676,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "post_graph_correctness": {
+        "selector": {
+          "exact_ids": true
+        },
+        "ours_attention": {
+          "max_abs": 0.001359701156616211,
+          "rmse": 8.60258296597749e-05,
+          "relative_l2": 0.0023185238242149353,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "ours_pipeline": {
+          "max_abs": 0.001359701156616211,
+          "rmse": 8.60258296597749e-05,
+          "relative_l2": 0.0023185238242149353,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_pipeline": {
+          "max_abs": 0.0014615654945373535,
+          "rmse": 8.600577712059021e-05,
+          "relative_l2": 0.002317983191460371,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_pipeline": {
+          "max_abs": 0.0013586580753326416,
+          "rmse": 8.60099753481336e-05,
+          "relative_l2": 0.002318096347153187,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_pipeline": {
+          "max_abs": 0.0009274333715438843,
+          "rmse": 8.601327863289043e-05,
+          "relative_l2": 0.00231818575412035,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_pipeline": {
+          "max_abs": 0.0009329915046691895,
+          "rmse": 8.60274230944924e-05,
+          "relative_l2": 0.0023185666650533676,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "selected_sha256": "c2cfc776c3ce68d995457295e24e7c02b25e1edb4d575fcdae284c8ef1b88685",
+      "qkv_sha256": [
+        "ae35073b3554ff876a32336c74bbe6bcc208198b94dc40bb9065bcfcf3f3c15e",
+        "7047f5cce54bc89a233e4c587a0624f3b79b6562717d71b2286f4c1b406dd4c3",
+        "10e13c1b6de202b6f717b63dbd4b702d798501d76aae4b96c00cfbd199936ca7"
+      ],
+      "mask_stats": {
+        "q_stage": 2,
+        "sparse_block_size": [
+          256,
+          128
+        ],
+        "full_block_count": 272,
+        "partial_block_count": 480,
+        "useful_q128_kv128_pairs_per_kv_head": 1024,
+        "union_schedule_pair_estimate": 1504,
+        "union_schedule_work_ratio": 1.46875,
+        "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+        "mean_adjacent_overlap_fraction": 0.53125,
+        "block_lookup_bytes": 2048
+      },
+      "configs": {
+        "fa4_q1_unpack": {
+          "q_stage": 1,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q1_pack": {
+          "q_stage": 1,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_unpack": {
+          "q_stage": 2,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_pack": {
+          "q_stage": 2,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        }
+      },
+      "timing": {
+        "samples_ms": {
+          "selector": [
+            0.047594434272715314,
+            0.047595543411383334,
+            0.0475963427696699
+          ],
+          "ours_attention": [
+            0.14048029202133863,
+            0.14049400473540685,
+            0.14072439405653211
+          ],
+          "ours_pipeline": [
+            0.1746038818359375,
+            0.17490569016029095,
+            0.1747895749613119
+          ],
+          "fa4_q1_unpack_pipeline": [
+            0.1951529328079469,
+            0.19507633665072843,
+            0.19510452880859375
+          ],
+          "fa4_q1_pack_pipeline": [
+            0.20179263931920552,
+            0.20160265092725876,
+            0.20157401592700513
+          ],
+          "fa4_q2_unpack_pipeline": [
+            0.2879961331685384,
+            0.2879970101230965,
+            0.28799841971100065
+          ],
+          "fa4_q2_pack_pipeline": [
+            0.2749085859818892,
+            0.2749751437026843,
+            0.2749438591087628
+          ]
+        },
+        "median_ms": {
+          "selector": 0.047595543411383334,
+          "ours_attention": 0.14049400473540685,
+          "ours_pipeline": 0.1747895749613119,
+          "fa4_q1_unpack_pipeline": 0.19510452880859375,
+          "fa4_q1_pack_pipeline": 0.20160265092725876,
+          "fa4_q2_unpack_pipeline": 0.2879970101230965,
+          "fa4_q2_pack_pipeline": 0.2749438591087628
+        },
+        "orders": [
+          [
+            "ours_attention",
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector"
+          ],
+          [
+            "ours_attention",
+            "selector",
+            "fa4_q2_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "ours_pipeline"
+          ],
+          [
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention",
+            "ours_pipeline"
+          ]
+        ],
+        "warmup_ms": 250,
+        "measure_ms": 1000,
+        "rounds": 3,
+        "graph_calls": 8
+      },
+      "gpu_state": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-53229ed4-50f0-859f-0278-b6149dbc34e3, 580.95.05, 55, 901.61 W, 1965 MHz, 3996 MHz, P0",
+        "stderr": ""
+      }
+    },
+    {
+      "selector": "fp4_prepared_synthetic",
+      "seed": 17,
+      "proxy_seed": 313,
+      "family": "gaussian",
+      "correctness": {
+        "selector": {
+          "score_max_abs": 0.0,
+          "exact_ids": true,
+          "environment_note": "unchanged scorer checked in the same DSL environment as FA4"
+        },
+        "ours": {
+          "max_abs": 0.002231299877166748,
+          "rmse": 8.588982746005058e-05,
+          "relative_l2": 0.002323339693248272,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.002231299877166748,
+          "rmse": 8.586985495639965e-05,
+          "relative_l2": 0.002322799526154995,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.002231299877166748,
+          "rmse": 8.587951742811128e-05,
+          "relative_l2": 0.0023230609949678183,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.0017825663089752197,
+          "rmse": 8.585683099227026e-05,
+          "relative_l2": 0.002322447020560503,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.0017825663089752197,
+          "rmse": 8.58557250467129e-05,
+          "relative_l2": 0.0023224172182381153,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "post_graph_correctness": {
+        "selector": {
+          "exact_ids": true
+        },
+        "ours_attention": {
+          "max_abs": 0.002231299877166748,
+          "rmse": 8.588982746005058e-05,
+          "relative_l2": 0.002323339693248272,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "ours_pipeline": {
+          "max_abs": 0.002231299877166748,
+          "rmse": 8.588982746005058e-05,
+          "relative_l2": 0.002323339693248272,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_pipeline": {
+          "max_abs": 0.002231299877166748,
+          "rmse": 8.586985495639965e-05,
+          "relative_l2": 0.002322799526154995,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_pipeline": {
+          "max_abs": 0.002231299877166748,
+          "rmse": 8.587951742811128e-05,
+          "relative_l2": 0.0023230609949678183,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_pipeline": {
+          "max_abs": 0.0017825663089752197,
+          "rmse": 8.585683099227026e-05,
+          "relative_l2": 0.002322447020560503,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_pipeline": {
+          "max_abs": 0.0017825663089752197,
+          "rmse": 8.58557250467129e-05,
+          "relative_l2": 0.0023224172182381153,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "selected_sha256": "75b9cd30148ebc12859487724fe9d0b785059723a203df10c9b45de15e45d8ae",
+      "qkv_sha256": [
+        "ae35073b3554ff876a32336c74bbe6bcc208198b94dc40bb9065bcfcf3f3c15e",
+        "7047f5cce54bc89a233e4c587a0624f3b79b6562717d71b2286f4c1b406dd4c3",
+        "10e13c1b6de202b6f717b63dbd4b702d798501d76aae4b96c00cfbd199936ca7"
+      ],
+      "mask_stats": {
+        "q_stage": 2,
+        "sparse_block_size": [
+          256,
+          128
+        ],
+        "full_block_count": 240,
+        "partial_block_count": 544,
+        "useful_q128_kv128_pairs_per_kv_head": 1024,
+        "union_schedule_pair_estimate": 1568,
+        "union_schedule_work_ratio": 1.53125,
+        "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+        "mean_adjacent_overlap_fraction": 0.46875,
+        "block_lookup_bytes": 2048
+      },
+      "configs": {
+        "fa4_q1_unpack": {
+          "q_stage": 1,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q1_pack": {
+          "q_stage": 1,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_unpack": {
+          "q_stage": 2,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_pack": {
+          "q_stage": 2,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        }
+      },
+      "timing": {
+        "samples_ms": {
+          "selector": [
+            0.01763240094258546,
+            0.01756362284510589,
+            0.017621821237194323
+          ],
+          "ours_attention": [
+            0.14029505896189856,
+            0.14158978205855174,
+            0.1405259988053514
+          ],
+          "ours_pipeline": [
+            0.1538993212103981,
+            0.15426723850680774,
+            0.15446356874884506
+          ],
+          "fa4_q1_unpack_pipeline": [
+            0.17437827411302775,
+            0.17480793361095232,
+            0.174911046911169
+          ],
+          "fa4_q1_pack_pipeline": [
+            0.173395223784865,
+            0.17344527685341715,
+            0.17348488009705834
+          ],
+          "fa4_q2_unpack_pipeline": [
+            0.28086982193165383,
+            0.28086270512761297,
+            0.2808713030330753
+          ],
+          "fa4_q2_pack_pipeline": [
+            0.26856576083288336,
+            0.2691104823145373,
+            0.26914517632846174
+          ]
+        },
+        "median_ms": {
+          "selector": 0.017621821237194323,
+          "ours_attention": 0.1405259988053514,
+          "ours_pipeline": 0.15426723850680774,
+          "fa4_q1_unpack_pipeline": 0.17480793361095232,
+          "fa4_q1_pack_pipeline": 0.17344527685341715,
+          "fa4_q2_unpack_pipeline": 0.28086982193165383,
+          "fa4_q2_pack_pipeline": 0.2691104823145373
+        },
+        "orders": [
+          [
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention"
+          ],
+          [
+            "ours_pipeline",
+            "ours_attention",
+            "selector",
+            "fa4_q2_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q1_unpack_pipeline"
+          ],
+          [
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention",
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline"
+          ]
+        ],
+        "warmup_ms": 250,
+        "measure_ms": 1000,
+        "rounds": 3,
+        "graph_calls": 8
+      },
+      "gpu_state": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-53229ed4-50f0-859f-0278-b6149dbc34e3, 580.95.05, 57, 964.49 W, 1927 MHz, 3996 MHz, P0",
+        "stderr": ""
+      }
+    },
+    {
+      "selector": "mean4_bf16",
+      "seed": 29,
+      "proxy_seed": null,
+      "family": "gaussian",
+      "correctness": {
+        "selector": {
+          "score_max_abs": 5.21540641784668e-08,
+          "exact_ids": true,
+          "exact_bf16_descriptors": true
+        },
+        "ours": {
+          "max_abs": 0.0009675174951553345,
+          "rmse": 8.489474566886202e-05,
+          "relative_l2": 0.0023454802576452494,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.0009879320859909058,
+          "rmse": 8.487203740514815e-05,
+          "relative_l2": 0.002344853011891246,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.0009879320859909058,
+          "rmse": 8.488060120726004e-05,
+          "relative_l2": 0.002345089567825198,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.0013848543167114258,
+          "rmse": 8.492542110616341e-05,
+          "relative_l2": 0.0023463277611881495,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.0013848543167114258,
+          "rmse": 8.491865446558222e-05,
+          "relative_l2": 0.0023461407981812954,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "post_graph_correctness": {
+        "selector": {
+          "exact_ids": true
+        },
+        "ours_attention": {
+          "max_abs": 0.0009675174951553345,
+          "rmse": 8.489474566886202e-05,
+          "relative_l2": 0.0023454802576452494,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "ours_pipeline": {
+          "max_abs": 0.0009675174951553345,
+          "rmse": 8.489474566886202e-05,
+          "relative_l2": 0.0023454802576452494,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_pipeline": {
+          "max_abs": 0.0009879320859909058,
+          "rmse": 8.487203740514815e-05,
+          "relative_l2": 0.002344853011891246,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_pipeline": {
+          "max_abs": 0.0009879320859909058,
+          "rmse": 8.488060120726004e-05,
+          "relative_l2": 0.002345089567825198,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_pipeline": {
+          "max_abs": 0.0013848543167114258,
+          "rmse": 8.492542110616341e-05,
+          "relative_l2": 0.0023463277611881495,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_pipeline": {
+          "max_abs": 0.0013848543167114258,
+          "rmse": 8.491865446558222e-05,
+          "relative_l2": 0.0023461407981812954,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "selected_sha256": "60cfb4a3ae468af5dbbf91636c5377c118c908bd0dcf343f32dc3d731494d889",
+      "qkv_sha256": [
+        "2762b66d83c7acae7bdda4331bfbc84f467d7aaafa181af16a5051d87539c36a",
+        "473fe781c5ce09b36ea7a62d4cc2163892177c0da0f44a596905cda2b0bb51ae",
+        "2fd53b6b7dd1a3ab400e1cb4de87f341c169bf5cd53e5d6f9e4cac1e030d94b3"
+      ],
+      "mask_stats": {
+        "q_stage": 2,
+        "sparse_block_size": [
+          256,
+          128
+        ],
+        "full_block_count": 275,
+        "partial_block_count": 474,
+        "useful_q128_kv128_pairs_per_kv_head": 1024,
+        "union_schedule_pair_estimate": 1498,
+        "union_schedule_work_ratio": 1.462890625,
+        "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+        "mean_adjacent_overlap_fraction": 0.537109375,
+        "block_lookup_bytes": 2048
+      },
+      "configs": {
+        "fa4_q1_unpack": {
+          "q_stage": 1,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q1_pack": {
+          "q_stage": 1,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_unpack": {
+          "q_stage": 2,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_pack": {
+          "q_stage": 2,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        }
+      },
+      "timing": {
+        "samples_ms": {
+          "selector": [
+            0.04784219779220282,
+            0.04784147572284688,
+            0.04784115985759254
+          ],
+          "ours_attention": [
+            0.14056020696918445,
+            0.14076216091851673,
+            0.14044239308574413
+          ],
+          "ours_pipeline": [
+            0.1749713734142678,
+            0.1752498211004795,
+            0.17499974365234375
+          ],
+          "fa4_q1_unpack_pipeline": [
+            0.19593172150898755,
+            0.1959769793489378,
+            0.1959743715449566
+          ],
+          "fa4_q1_pack_pipeline": [
+            0.2024381422177079,
+            0.20236861066120426,
+            0.2023805624498995
+          ],
+          "fa4_q2_unpack_pipeline": [
+            0.29447414524747295,
+            0.2944865846746639,
+            0.2944603958310247
+          ],
+          "fa4_q2_pack_pipeline": [
+            0.28223582181063567,
+            0.2821355103367594,
+            0.28223377762876484
+          ]
+        },
+        "median_ms": {
+          "selector": 0.04784147572284688,
+          "ours_attention": 0.14056020696918445,
+          "ours_pipeline": 0.17499974365234375,
+          "fa4_q1_unpack_pipeline": 0.1959743715449566,
+          "fa4_q1_pack_pipeline": 0.2023805624498995,
+          "fa4_q2_unpack_pipeline": 0.29447414524747295,
+          "fa4_q2_pack_pipeline": 0.28223377762876484
+        },
+        "orders": [
+          [
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention"
+          ],
+          [
+            "ours_pipeline",
+            "ours_attention",
+            "selector",
+            "fa4_q2_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q1_unpack_pipeline"
+          ],
+          [
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention",
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline"
+          ]
+        ],
+        "warmup_ms": 250,
+        "measure_ms": 1000,
+        "rounds": 3,
+        "graph_calls": 8
+      },
+      "gpu_state": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-53229ed4-50f0-859f-0278-b6149dbc34e3, 580.95.05, 53, 905.50 W, 1965 MHz, 3996 MHz, P0",
+        "stderr": ""
+      }
+    },
+    {
+      "selector": "fp4_prepared_synthetic",
+      "seed": 29,
+      "proxy_seed": 314,
+      "family": "gaussian",
+      "correctness": {
+        "selector": {
+          "score_max_abs": 0.0,
+          "exact_ids": true,
+          "environment_note": "unchanged scorer checked in the same DSL environment as FA4"
+        },
+        "ours": {
+          "max_abs": 0.0012363791465759277,
+          "rmse": 8.496167720295489e-05,
+          "relative_l2": 0.0023423819802701473,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.0015266835689544678,
+          "rmse": 8.497524686390534e-05,
+          "relative_l2": 0.002342756139114499,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.0015266835689544678,
+          "rmse": 8.496915688738227e-05,
+          "relative_l2": 0.0023425882682204247,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.0010055005550384521,
+          "rmse": 8.498900569975376e-05,
+          "relative_l2": 0.0023431354202330112,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.0010055005550384521,
+          "rmse": 8.498859824612737e-05,
+          "relative_l2": 0.002343124244362116,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "post_graph_correctness": {
+        "selector": {
+          "exact_ids": true
+        },
+        "ours_attention": {
+          "max_abs": 0.0012363791465759277,
+          "rmse": 8.496167720295489e-05,
+          "relative_l2": 0.0023423819802701473,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "ours_pipeline": {
+          "max_abs": 0.0012363791465759277,
+          "rmse": 8.496167720295489e-05,
+          "relative_l2": 0.0023423819802701473,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_pipeline": {
+          "max_abs": 0.0015266835689544678,
+          "rmse": 8.497524686390534e-05,
+          "relative_l2": 0.002342756139114499,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_pipeline": {
+          "max_abs": 0.0015266835689544678,
+          "rmse": 8.496915688738227e-05,
+          "relative_l2": 0.0023425882682204247,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_pipeline": {
+          "max_abs": 0.0010055005550384521,
+          "rmse": 8.498900569975376e-05,
+          "relative_l2": 0.0023431354202330112,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_pipeline": {
+          "max_abs": 0.0010055005550384521,
+          "rmse": 8.498859824612737e-05,
+          "relative_l2": 0.002343124244362116,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "selected_sha256": "429b898c0054172a1104564895cba622544bc67c89e2337861a9608b74b5b596",
+      "qkv_sha256": [
+        "2762b66d83c7acae7bdda4331bfbc84f467d7aaafa181af16a5051d87539c36a",
+        "473fe781c5ce09b36ea7a62d4cc2163892177c0da0f44a596905cda2b0bb51ae",
+        "2fd53b6b7dd1a3ab400e1cb4de87f341c169bf5cd53e5d6f9e4cac1e030d94b3"
+      ],
+      "mask_stats": {
+        "q_stage": 2,
+        "sparse_block_size": [
+          256,
+          128
+        ],
+        "full_block_count": 249,
+        "partial_block_count": 526,
+        "useful_q128_kv128_pairs_per_kv_head": 1024,
+        "union_schedule_pair_estimate": 1550,
+        "union_schedule_work_ratio": 1.513671875,
+        "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+        "mean_adjacent_overlap_fraction": 0.486328125,
+        "block_lookup_bytes": 2048
+      },
+      "configs": {
+        "fa4_q1_unpack": {
+          "q_stage": 1,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q1_pack": {
+          "q_stage": 1,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_unpack": {
+          "q_stage": 2,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_pack": {
+          "q_stage": 2,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        }
+      },
+      "timing": {
+        "samples_ms": {
+          "selector": [
+            0.01766498527859166,
+            0.017658144781077762,
+            0.01766454293118439
+          ],
+          "ours_attention": [
+            0.14052627110245205,
+            0.14067305453225698,
+            0.14053861410310953
+          ],
+          "ours_pipeline": [
+            0.15476126022036513,
+            0.15490525826899962,
+            0.15484024850945724
+          ],
+          "fa4_q1_unpack_pipeline": [
+            0.1759615243700972,
+            0.17592226928348711,
+            0.17628893203283907
+          ],
+          "fa4_q1_pack_pipeline": [
+            0.1745678625793009,
+            0.17448260275165686,
+            0.1747370491250914
+          ],
+          "fa4_q2_unpack_pipeline": [
+            0.2830992679118024,
+            0.2830700614235618,
+            0.28307352909425487
+          ],
+          "fa4_q2_pack_pipeline": [
+            0.25355118732063137,
+            0.25355444323506715,
+            0.25350824732887284
+          ]
+        },
+        "median_ms": {
+          "selector": 0.01766454293118439,
+          "ours_attention": 0.14053861410310953,
+          "ours_pipeline": 0.15484024850945724,
+          "fa4_q1_unpack_pipeline": 0.1759615243700972,
+          "fa4_q1_pack_pipeline": 0.1745678625793009,
+          "fa4_q2_unpack_pipeline": 0.28307352909425487,
+          "fa4_q2_pack_pipeline": 0.25355118732063137
+        },
+        "orders": [
+          [
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention",
+            "ours_pipeline"
+          ],
+          [
+            "fa4_q1_unpack_pipeline",
+            "ours_pipeline",
+            "ours_attention",
+            "selector",
+            "fa4_q2_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q1_pack_pipeline"
+          ],
+          [
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention",
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline"
+          ]
+        ],
+        "warmup_ms": 250,
+        "measure_ms": 1000,
+        "rounds": 3,
+        "graph_calls": 8
+      },
+      "gpu_state": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-53229ed4-50f0-859f-0278-b6149dbc34e3, 580.95.05, 62, 977.07 W, 1957 MHz, 3996 MHz, P0",
+        "stderr": ""
+      }
+    },
+    {
+      "selector": "mean1_bf16",
+      "seed": 29,
+      "proxy_seed": null,
+      "family": "gaussian",
+      "correctness": {
+        "selector": {
+          "score_max_abs": 1.1175870895385742e-08,
+          "exact_ids": true,
+          "exact_bf16_descriptors": true
+        },
+        "ours": {
+          "max_abs": 0.0015560388565063477,
+          "rmse": 8.483327110297978e-05,
+          "relative_l2": 0.0023476090282201767,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.0011686384677886963,
+          "rmse": 8.482632256345823e-05,
+          "relative_l2": 0.0023474167101085186,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.0011686384677886963,
+          "rmse": 8.483040437567979e-05,
+          "relative_l2": 0.0023475296329706907,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.0009420216083526611,
+          "rmse": 8.483236888423562e-05,
+          "relative_l2": 0.0023475841153413057,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.0009420216083526611,
+          "rmse": 8.482711564283818e-05,
+          "relative_l2": 0.002347438596189022,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "post_graph_correctness": {
+        "selector": {
+          "exact_ids": true
+        },
+        "ours_attention": {
+          "max_abs": 0.0015560388565063477,
+          "rmse": 8.483327110297978e-05,
+          "relative_l2": 0.0023476090282201767,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "ours_pipeline": {
+          "max_abs": 0.0015560388565063477,
+          "rmse": 8.483327110297978e-05,
+          "relative_l2": 0.0023476090282201767,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_pipeline": {
+          "max_abs": 0.0011686384677886963,
+          "rmse": 8.482632256345823e-05,
+          "relative_l2": 0.0023474167101085186,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_pipeline": {
+          "max_abs": 0.0011686384677886963,
+          "rmse": 8.483040437567979e-05,
+          "relative_l2": 0.0023475296329706907,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_pipeline": {
+          "max_abs": 0.0009420216083526611,
+          "rmse": 8.483236888423562e-05,
+          "relative_l2": 0.0023475841153413057,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_pipeline": {
+          "max_abs": 0.0009420216083526611,
+          "rmse": 8.482711564283818e-05,
+          "relative_l2": 0.002347438596189022,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "selected_sha256": "06b20f4177f0321cb74734003dafbe3d9ffba9ad506f984acacffd046c9b1781",
+      "qkv_sha256": [
+        "2762b66d83c7acae7bdda4331bfbc84f467d7aaafa181af16a5051d87539c36a",
+        "473fe781c5ce09b36ea7a62d4cc2163892177c0da0f44a596905cda2b0bb51ae",
+        "2fd53b6b7dd1a3ab400e1cb4de87f341c169bf5cd53e5d6f9e4cac1e030d94b3"
+      ],
+      "mask_stats": {
+        "q_stage": 2,
+        "sparse_block_size": [
+          256,
+          128
+        ],
+        "full_block_count": 270,
+        "partial_block_count": 484,
+        "useful_q128_kv128_pairs_per_kv_head": 1024,
+        "union_schedule_pair_estimate": 1508,
+        "union_schedule_work_ratio": 1.47265625,
+        "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+        "mean_adjacent_overlap_fraction": 0.52734375,
+        "block_lookup_bytes": 2048
+      },
+      "configs": {
+        "fa4_q1_unpack": {
+          "q_stage": 1,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q1_pack": {
+          "q_stage": 1,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_unpack": {
+          "q_stage": 2,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_pack": {
+          "q_stage": 2,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        }
+      },
+      "timing": {
+        "samples_ms": {
+          "selector": [
+            0.02074196504585909,
+            0.020741758714001076,
+            0.02073650254290577
+          ],
+          "ours_attention": [
+            0.14106475799892587,
+            0.14110059092244304,
+            0.14072683616010592
+          ],
+          "ours_pipeline": [
+            0.15611659312408244,
+            0.15638175696819265,
+            0.156144796281853
+          ],
+          "fa4_q1_unpack_pipeline": [
+            0.17487716112993604,
+            0.175031814265477,
+            0.17470518095402424
+          ],
+          "fa4_q1_pack_pipeline": [
+            0.17590800838949408,
+            0.17577761849441098,
+            0.17578398846805185
+          ],
+          "fa4_q2_unpack_pipeline": [
+            0.26523604822772767,
+            0.2654196733096515,
+            0.26541297115496737
+          ],
+          "fa4_q2_pack_pipeline": [
+            0.25128506550198876,
+            0.25154346035372827,
+            0.25149517637310603
+          ]
+        },
+        "median_ms": {
+          "selector": 0.020741758714001076,
+          "ours_attention": 0.14106475799892587,
+          "ours_pipeline": 0.156144796281853,
+          "fa4_q1_unpack_pipeline": 0.17487716112993604,
+          "fa4_q1_pack_pipeline": 0.17578398846805185,
+          "fa4_q2_unpack_pipeline": 0.26541297115496737,
+          "fa4_q2_pack_pipeline": 0.25149517637310603
+        },
+        "orders": [
+          [
+            "ours_attention",
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector"
+          ],
+          [
+            "ours_attention",
+            "selector",
+            "fa4_q2_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "ours_pipeline"
+          ],
+          [
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention",
+            "ours_pipeline"
+          ]
+        ],
+        "warmup_ms": 250,
+        "measure_ms": 1000,
+        "rounds": 3,
+        "graph_calls": 8
+      },
+      "gpu_state": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-53229ed4-50f0-859f-0278-b6149dbc34e3, 580.95.05, 56, 938.74 W, 1927 MHz, 3996 MHz, P0",
+        "stderr": ""
+      }
+    },
+    {
+      "selector": "fp4_prepared_synthetic",
+      "seed": 41,
+      "proxy_seed": 315,
+      "family": "gaussian",
+      "correctness": {
+        "selector": {
+          "score_max_abs": 0.0,
+          "exact_ids": true,
+          "environment_note": "unchanged scorer checked in the same DSL environment as FA4"
+        },
+        "ours": {
+          "max_abs": 0.0011040270328521729,
+          "rmse": 8.532137144356966e-05,
+          "relative_l2": 0.0023317132145166397,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.0011346936225891113,
+          "rmse": 8.529113256372511e-05,
+          "relative_l2": 0.002330886898562312,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.0011346936225891113,
+          "rmse": 8.530623745173216e-05,
+          "relative_l2": 0.002331299940124154,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.0009105503559112549,
+          "rmse": 8.528430771548301e-05,
+          "relative_l2": 0.0023307004012167454,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.0009105503559112549,
+          "rmse": 8.528032049071044e-05,
+          "relative_l2": 0.0023305914364755154,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "post_graph_correctness": {
+        "selector": {
+          "exact_ids": true
+        },
+        "ours_attention": {
+          "max_abs": 0.0011040270328521729,
+          "rmse": 8.532137144356966e-05,
+          "relative_l2": 0.0023317132145166397,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "ours_pipeline": {
+          "max_abs": 0.0011040270328521729,
+          "rmse": 8.532137144356966e-05,
+          "relative_l2": 0.0023317132145166397,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_pipeline": {
+          "max_abs": 0.0011346936225891113,
+          "rmse": 8.529113256372511e-05,
+          "relative_l2": 0.002330886898562312,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_pipeline": {
+          "max_abs": 0.0011346936225891113,
+          "rmse": 8.530623745173216e-05,
+          "relative_l2": 0.002331299940124154,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_pipeline": {
+          "max_abs": 0.0009105503559112549,
+          "rmse": 8.528430771548301e-05,
+          "relative_l2": 0.0023307004012167454,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_pipeline": {
+          "max_abs": 0.0009105503559112549,
+          "rmse": 8.528032049071044e-05,
+          "relative_l2": 0.0023305914364755154,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "selected_sha256": "937ad9e5f09aab02a79fb0582ed73d7855ecc0d00c796d8fd2c928bfb98cf4f8",
+      "qkv_sha256": [
+        "f2756f802a7ba7cc6623192d854abbb0683e9627d758daed06999988158d83f5",
+        "07a1b30a3d2c69ef657406969aab5a0c6f25b908b6877518fcbec0c1d86c2d45",
+        "f740a17e8bf0ea3d544869fea31ba2f388ef90d8fb715b1d4375833e83ac8df2"
+      ],
+      "mask_stats": {
+        "q_stage": 2,
+        "sparse_block_size": [
+          256,
+          128
+        ],
+        "full_block_count": 265,
+        "partial_block_count": 494,
+        "useful_q128_kv128_pairs_per_kv_head": 1024,
+        "union_schedule_pair_estimate": 1518,
+        "union_schedule_work_ratio": 1.482421875,
+        "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+        "mean_adjacent_overlap_fraction": 0.517578125,
+        "block_lookup_bytes": 2048
+      },
+      "configs": {
+        "fa4_q1_unpack": {
+          "q_stage": 1,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q1_pack": {
+          "q_stage": 1,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_unpack": {
+          "q_stage": 2,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_pack": {
+          "q_stage": 2,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        }
+      },
+      "timing": {
+        "samples_ms": {
+          "selector": [
+            0.017671565193774677,
+            0.01766415701794292,
+            0.017672796733538734
+          ],
+          "ours_attention": [
+            0.14068703523577147,
+            0.1409005422960535,
+            0.14059806649819592
+          ],
+          "ours_pipeline": [
+            0.1546297617959153,
+            0.15479097343680412,
+            0.15466924619231406
+          ],
+          "fa4_q1_unpack_pipeline": [
+            0.17540986929366836,
+            0.17542059525199558,
+            0.17539606685132053
+          ],
+          "fa4_q1_pack_pipeline": [
+            0.1735954497779548,
+            0.17366636181711803,
+            0.17349145578783612
+          ],
+          "fa4_q2_unpack_pipeline": [
+            0.26404673477699014,
+            0.2640160059524795,
+            0.26398476099563856
+          ],
+          "fa4_q2_pack_pipeline": [
+            0.24739892359273843,
+            0.24739708720334244,
+            0.24734713969600367
+          ]
+        },
+        "median_ms": {
+          "selector": 0.017671565193774677,
+          "ours_attention": 0.14068703523577147,
+          "ours_pipeline": 0.15466924619231406,
+          "fa4_q1_unpack_pipeline": 0.17540986929366836,
+          "fa4_q1_pack_pipeline": 0.1735954497779548,
+          "fa4_q2_unpack_pipeline": 0.2640160059524795,
+          "fa4_q2_pack_pipeline": 0.24739708720334244
+        },
+        "orders": [
+          [
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention",
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline"
+          ],
+          [
+            "fa4_q1_pack_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "ours_pipeline",
+            "ours_attention",
+            "selector",
+            "fa4_q2_pack_pipeline",
+            "fa4_q2_unpack_pipeline"
+          ],
+          [
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention",
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline"
+          ]
+        ],
+        "warmup_ms": 250,
+        "measure_ms": 1000,
+        "rounds": 3,
+        "graph_calls": 8
+      },
+      "gpu_state": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-53229ed4-50f0-859f-0278-b6149dbc34e3, 580.95.05, 60, 904.01 W, 1965 MHz, 3996 MHz, P0",
+        "stderr": ""
+      }
+    },
+    {
+      "selector": "mean1_bf16",
+      "seed": 41,
+      "proxy_seed": null,
+      "family": "gaussian",
+      "correctness": {
+        "selector": {
+          "score_max_abs": 7.450580596923828e-09,
+          "exact_ids": true,
+          "exact_bf16_descriptors": true
+        },
+        "ours": {
+          "max_abs": 0.0012228190898895264,
+          "rmse": 8.547131437808275e-05,
+          "relative_l2": 0.0023293255362659693,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.0013116002082824707,
+          "rmse": 8.545238233637065e-05,
+          "relative_l2": 0.0023288095835596323,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.0013116002082824707,
+          "rmse": 8.545527816750109e-05,
+          "relative_l2": 0.002328888513147831,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.0010039061307907104,
+          "rmse": 8.544565207557753e-05,
+          "relative_l2": 0.0023286263458430767,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.0010039061307907104,
+          "rmse": 8.544139564037323e-05,
+          "relative_l2": 0.0023285101633518934,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "post_graph_correctness": {
+        "selector": {
+          "exact_ids": true
+        },
+        "ours_attention": {
+          "max_abs": 0.0012228190898895264,
+          "rmse": 8.547131437808275e-05,
+          "relative_l2": 0.0023293255362659693,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "ours_pipeline": {
+          "max_abs": 0.0012228190898895264,
+          "rmse": 8.547131437808275e-05,
+          "relative_l2": 0.0023293255362659693,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_pipeline": {
+          "max_abs": 0.0013116002082824707,
+          "rmse": 8.545238233637065e-05,
+          "relative_l2": 0.0023288095835596323,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_pipeline": {
+          "max_abs": 0.0013116002082824707,
+          "rmse": 8.545527816750109e-05,
+          "relative_l2": 0.002328888513147831,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_pipeline": {
+          "max_abs": 0.0010039061307907104,
+          "rmse": 8.544565207557753e-05,
+          "relative_l2": 0.0023286263458430767,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_pipeline": {
+          "max_abs": 0.0010039061307907104,
+          "rmse": 8.544139564037323e-05,
+          "relative_l2": 0.0023285101633518934,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "selected_sha256": "a30abd33b9ccf788e2f30a60a4dd17f268de6216c97885724d6c9012e9e3f67a",
+      "qkv_sha256": [
+        "f2756f802a7ba7cc6623192d854abbb0683e9627d758daed06999988158d83f5",
+        "07a1b30a3d2c69ef657406969aab5a0c6f25b908b6877518fcbec0c1d86c2d45",
+        "f740a17e8bf0ea3d544869fea31ba2f388ef90d8fb715b1d4375833e83ac8df2"
+      ],
+      "mask_stats": {
+        "q_stage": 2,
+        "sparse_block_size": [
+          256,
+          128
+        ],
+        "full_block_count": 280,
+        "partial_block_count": 464,
+        "useful_q128_kv128_pairs_per_kv_head": 1024,
+        "union_schedule_pair_estimate": 1488,
+        "union_schedule_work_ratio": 1.453125,
+        "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+        "mean_adjacent_overlap_fraction": 0.546875,
+        "block_lookup_bytes": 2048
+      },
+      "configs": {
+        "fa4_q1_unpack": {
+          "q_stage": 1,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q1_pack": {
+          "q_stage": 1,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_unpack": {
+          "q_stage": 2,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_pack": {
+          "q_stage": 2,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        }
+      },
+      "timing": {
+        "samples_ms": {
+          "selector": [
+            0.020729449242827495,
+            0.020726291432100183,
+            0.020735433030026153
+          ],
+          "ours_attention": [
+            0.14057248913744097,
+            0.14076964162028255,
+            0.14072472005046704
+          ],
+          "ours_pipeline": [
+            0.15567151290060613,
+            0.15571585033917876,
+            0.15582728893198866
+          ],
+          "fa4_q1_unpack_pipeline": [
+            0.17481763946623224,
+            0.17495311015361065,
+            0.17480993060813602
+          ],
+          "fa4_q1_pack_pipeline": [
+            0.17457147001695003,
+            0.17465548568897032,
+            0.17468511570266812
+          ],
+          "fa4_q2_unpack_pipeline": [
+            0.25928710488712087,
+            0.259262752532959,
+            0.2592901764554459
+          ],
+          "fa4_q2_pack_pipeline": [
+            0.247863525390625,
+            0.24781354015091975,
+            0.24781733965018832
+          ]
+        },
+        "median_ms": {
+          "selector": 0.020729449242827495,
+          "ours_attention": 0.14072472005046704,
+          "ours_pipeline": 0.15571585033917876,
+          "fa4_q1_unpack_pipeline": 0.17481763946623224,
+          "fa4_q1_pack_pipeline": 0.17465548568897032,
+          "fa4_q2_unpack_pipeline": 0.25928710488712087,
+          "fa4_q2_pack_pipeline": 0.24781733965018832
+        },
+        "orders": [
+          [
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention"
+          ],
+          [
+            "ours_pipeline",
+            "ours_attention",
+            "selector",
+            "fa4_q2_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q1_unpack_pipeline"
+          ],
+          [
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention",
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline"
+          ]
+        ],
+        "warmup_ms": 250,
+        "measure_ms": 1000,
+        "rounds": 3,
+        "graph_calls": 8
+      },
+      "gpu_state": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-53229ed4-50f0-859f-0278-b6149dbc34e3, 580.95.05, 61, 955.46 W, 1950 MHz, 3996 MHz, P0",
+        "stderr": ""
+      }
+    },
+    {
+      "selector": "mean4_bf16",
+      "seed": 41,
+      "proxy_seed": null,
+      "family": "gaussian",
+      "correctness": {
+        "selector": {
+          "score_max_abs": 4.470348358154297e-08,
+          "exact_ids": true,
+          "exact_bf16_descriptors": true
+        },
+        "ours": {
+          "max_abs": 0.0008575171232223511,
+          "rmse": 8.57064442243427e-05,
+          "relative_l2": 0.002322406740859151,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack": {
+          "max_abs": 0.0013922452926635742,
+          "rmse": 8.573919330956414e-05,
+          "relative_l2": 0.002323294058442116,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack": {
+          "max_abs": 0.0013922452926635742,
+          "rmse": 8.574342064093798e-05,
+          "relative_l2": 0.0023234086111187935,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack": {
+          "max_abs": 0.0011677443981170654,
+          "rmse": 8.571681973990053e-05,
+          "relative_l2": 0.0023226880002766848,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack": {
+          "max_abs": 0.0011677443981170654,
+          "rmse": 8.571385842515156e-05,
+          "relative_l2": 0.002322607673704624,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "post_graph_correctness": {
+        "selector": {
+          "exact_ids": true
+        },
+        "ours_attention": {
+          "max_abs": 0.0008575171232223511,
+          "rmse": 8.57064442243427e-05,
+          "relative_l2": 0.002322406740859151,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "ours_pipeline": {
+          "max_abs": 0.0008575171232223511,
+          "rmse": 8.57064442243427e-05,
+          "relative_l2": 0.002322406740859151,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_unpack_pipeline": {
+          "max_abs": 0.0013922452926635742,
+          "rmse": 8.573919330956414e-05,
+          "relative_l2": 0.002323294058442116,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q1_pack_pipeline": {
+          "max_abs": 0.0013922452926635742,
+          "rmse": 8.574342064093798e-05,
+          "relative_l2": 0.0023234086111187935,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_unpack_pipeline": {
+          "max_abs": 0.0011677443981170654,
+          "rmse": 8.571681973990053e-05,
+          "relative_l2": 0.0023226880002766848,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        },
+        "fa4_q2_pack_pipeline": {
+          "max_abs": 0.0011677443981170654,
+          "rmse": 8.571385842515156e-05,
+          "relative_l2": 0.002322607673704624,
+          "atol": 0.02,
+          "rtol": 0.02,
+          "checked_output_elements": 16777216
+        }
+      },
+      "selected_sha256": "bd07730ecf9a37a20c5587bde30259e61200e0776ca97397dc8b9fe3c68c9a10",
+      "qkv_sha256": [
+        "f2756f802a7ba7cc6623192d854abbb0683e9627d758daed06999988158d83f5",
+        "07a1b30a3d2c69ef657406969aab5a0c6f25b908b6877518fcbec0c1d86c2d45",
+        "f740a17e8bf0ea3d544869fea31ba2f388ef90d8fb715b1d4375833e83ac8df2"
+      ],
+      "mask_stats": {
+        "q_stage": 2,
+        "sparse_block_size": [
+          256,
+          128
+        ],
+        "full_block_count": 257,
+        "partial_block_count": 510,
+        "useful_q128_kv128_pairs_per_kv_head": 1024,
+        "union_schedule_pair_estimate": 1534,
+        "union_schedule_work_ratio": 1.498046875,
+        "work_ratio_note": "metadata-based estimate, not hardware instruction profiling or latency",
+        "mean_adjacent_overlap_fraction": 0.501953125,
+        "block_lookup_bytes": 2048
+      },
+      "configs": {
+        "fa4_q1_unpack": {
+          "q_stage": 1,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q1_pack": {
+          "q_stage": 1,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": false,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_unpack": {
+          "q_stage": 2,
+          "pack_gqa": false,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        },
+        "fa4_q2_pack": {
+          "q_stage": 2,
+          "pack_gqa": true,
+          "num_splits": 1,
+          "dense": false,
+          "dense_force_1cta": true,
+          "q_shape": [
+            2,
+            4096,
+            16,
+            128
+          ],
+          "q_strides": [
+            8388608,
+            128,
+            524288,
+            1
+          ],
+          "k_strides": [
+            524288,
+            128,
+            524288,
+            1
+          ],
+          "common_input_zero_copy_views": true,
+          "q1_metadata": "IDs alias full-block indices; constant counts; zero GPU adapter launches",
+          "q2_metadata": "one GPU intersection/union kernel, no CPU IDs read during pipeline",
+          "q2_mask_callback_always_present": true,
+          "observed_compiled_configurations": []
+        }
+      },
+      "timing": {
+        "samples_ms": {
+          "selector": [
+            0.04785147563213922,
+            0.047850817920052434,
+            0.047853251336847695
+          ],
+          "ours_attention": [
+            0.1405313905804788,
+            0.14069385624411118,
+            0.1405574296749428
+          ],
+          "ours_pipeline": [
+            0.17545269302097005,
+            0.1756943508797167,
+            0.17529875192886743
+          ],
+          "fa4_q1_unpack_pipeline": [
+            0.1959068213970552,
+            0.19579136677277395,
+            0.1957282101553095
+          ],
+          "fa4_q1_pack_pipeline": [
+            0.20239987092859604,
+            0.20229335871892176,
+            0.20234466453328584
+          ],
+          "fa4_q2_unpack_pipeline": [
+            0.3051466695799582,
+            0.30510090499169085,
+            0.3051353585166278
+          ],
+          "fa4_q2_pack_pipeline": [
+            0.2826437863436612,
+            0.28260413967833226,
+            0.282576615037291
+          ]
+        },
+        "median_ms": {
+          "selector": 0.04785147563213922,
+          "ours_attention": 0.1405574296749428,
+          "ours_pipeline": 0.17545269302097005,
+          "fa4_q1_unpack_pipeline": 0.19579136677277395,
+          "fa4_q1_pack_pipeline": 0.20234466453328584,
+          "fa4_q2_unpack_pipeline": 0.3051353585166278,
+          "fa4_q2_pack_pipeline": 0.28260413967833226
+        },
+        "orders": [
+          [
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention",
+            "ours_pipeline"
+          ],
+          [
+            "fa4_q1_unpack_pipeline",
+            "ours_pipeline",
+            "ours_attention",
+            "selector",
+            "fa4_q2_pack_pipeline",
+            "fa4_q2_unpack_pipeline",
+            "fa4_q1_pack_pipeline"
+          ],
+          [
+            "fa4_q2_unpack_pipeline",
+            "fa4_q2_pack_pipeline",
+            "selector",
+            "ours_attention",
+            "ours_pipeline",
+            "fa4_q1_unpack_pipeline",
+            "fa4_q1_pack_pipeline"
+          ]
+        ],
+        "warmup_ms": 250,
+        "measure_ms": 1000,
+        "rounds": 3,
+        "graph_calls": 8
+      },
+      "gpu_state": {
+        "returncode": 0,
+        "stdout": "NVIDIA B200, GPU-53229ed4-50f0-859f-0278-b6149dbc34e3, 580.95.05, 58, 860.98 W, 1965 MHz, 3996 MHz, P0",
+        "stderr": ""
+      }
+    }
+  ],
+  "checks": [],
+  "device": "NVIDIA B200",
+  "torch_version": "2.9.1+cu130",
+  "cuda_version": "13.0",
+  "gpu_start": {
+    "returncode": 0,
+    "stdout": "NVIDIA B200, GPU-53229ed4-50f0-859f-0278-b6149dbc34e3, 580.95.05, 35, 195.34 W, 120 MHz, 3996 MHz, P0",
+    "stderr": ""
+  },
+  "versions": {
+    "nvidia-cutlass-dsl": "4.6.2",
+    "quack-kernels": "0.6.4",
+    "triton": "3.5.1"
+  },
+  "elapsed_seconds": 252.06933742400003,
+  "gpu_end": {
+    "returncode": 0,
+    "stdout": "NVIDIA B200, GPU-53229ed4-50f0-859f-0278-b6149dbc34e3, 580.95.05, 58, 860.98 W, 1965 MHz, 3996 MHz, P0",
+    "stderr": ""
+  },
+  "our_version": "p03",
+  "model_quality_claim": false,
+  "workload": "B2 Hq16 Hkv1 Sq4096 D128 BF16 noncausal TopK16 of K128; Gaussian synthetic",
+  "timer": "CUDA Graph, 8 calls, warmup250ms, measure1000ms, 3 rotated rounds",
+  "input_layout": "shared BHSD buffers; FA4 receives zero-copy strided BSHD views",
+  "full_pipeline": "directly timed selector -> GPU metadata if needed -> attention; no CPU ID read",
+  "fp4_boundary": "independent prepared synthetic FP4 proxies; projection/quantization/preparation excluded",
+  "allocation_boundary": "reused outputs and selector buffers; FP4 public scorer allocates raw scores during graph capture",
+  "quality": "not remeasured here; correctness is against selected-mask FP32 attention, not dense/model quality",
+  "provenance": {
+    "source_sha256": {
+      "main/sparse/checkpoints.py": "5582babef71854024c4c71416a324a33cfbfc315c0b17c48bb9656e94228b095",
+      "main/sparse/progression.py": "49f355fe0397459869f15271bd6e6b5b2c41095fcce399fe189d663940f92d18",
+      "main/sparse/progression_attention.cpp": "964329758bb91eb334d969ed4a2e006c532a93aa8861feb9c8efd9edb1377406",
+      "main/sparse/archive/dense13_progression/01_block_sparse.cu": "625596bbb89855a596b1cd661f607998663b461c52bd0752b4ca39820fb8405c",
+      "main/sparse/01_block_sparse.cu": "623cb831e54c4ddef48485e0b2f17d8befc626f3a852a2b7db64b3cd6b39ae78",
+      "main/sparse/02_gqa_block_sparse.cu": "0b224b2ce92d2192a5dd745cb607e04a73fb4010ebdc7373e3ab350d28268127",
+      "main/sparse/compat/p01_dense13.cu": "29e4451b4449def5ffa766bf8315e213643728562a535f985642638943ea200c",
+      "main/common.cuh": "6b7733687d387a30f7d1587678e0bf1be8337a525454e826ceb1c2e0d57f0156",
+      "main/approximations.cuh": "2690fd181a9471a07021a8b5d4f82a8477b2aab3bcc55fd9535b5170bc43eef4",
+      "main/smem_layout_swizzle128.cuh": "43c70bd38124bc65b0edf4615f153aec8d3b6428dfe2a16a00925a8fec14469b",
+      "main/sparse/fp4_indexer/__init__.py": "93bc4af6e54cd26c8b18fa12cb51610a9d4bda7329c79aef1d503c1b7f1f2e54",
+      "main/sparse/fp4_indexer/fp4.py": "8a7ba82ba57305a35be26c6cfa2ebccca2fb59a7bcfce6ac4d64115935d223c6",
+      "main/sparse/fp4_indexer/fp4_reference.py": "c3bfab80ea7a2a0f5bf7662966ef0936c4e6a223d1553f8e50c7b76975e34d21",
+      "main/sparse/fp4_indexer/reference.py": "4c4cb96e9a806fbcdff406f55c1ac5a82ae6211e64540860a5fe4499cf526d4f",
+      "main/sparse/fp4_indexer/wrapper.cpp": "4cfccb0793e5f50e76169a2a3e00a28c17bb96423a8c58e8f7170cd6091228cf",
+      "main/sparse/fp4_indexer/tile_topk.cu": "2e4b0c21e630045ccc78e68f70cd5ed550619eb6ede86471852c2e0471d5d22e",
+      "main/reference_repos/minimax_msa/python/fmha_sm100/cute/fp4_indexer_interface.py": "10df94ac974772414706232a56f5ff5d314554e25ba1d473c351ad08bc3a59b6",
+      "main/reference_repos/minimax_msa/python/fmha_sm100/cute/src/__init__.py": "65d0a9ce76e5abd520192360234849a035e993e7af72f1a3bf7186b61c43fe73",
+      "main/reference_repos/minimax_msa/python/fmha_sm100/cute/src/sm100/__init__.py": "250a50b4be7c7eca3c0765f0be7d1755ebd5a888e7935e705501345141862c2b",
+      "main/reference_repos/minimax_msa/python/fmha_sm100/cute/src/sm100/fp4_indexer.py": "28fa7bcd65d48bedd425c1554a3b72fc8d2b38c4100ae4913e8babec2eb2e93c",
+      "main/reference_repos/minimax_msa/python/fmha_sm100/cute/src/common/__init__.py": "65d0a9ce76e5abd520192360234849a035e993e7af72f1a3bf7186b61c43fe73",
+      "main/reference_repos/minimax_msa/python/fmha_sm100/cute/src/common/pipeline.py": "30815fa030c3f05b3ffd241247e27323fd0c275a8f1a6976f7b46d6c2daa3d15",
+      "main/reference_repos/minimax_msa/LICENSE": "eed4ccce37c2d24822da3bd9d5bee7bc12d494741de56ada513d0b97f537fcd0",
+      "helpers/metadata.py": "ba967ad9e7cada8df4f310964f36eeaf579660c686b51924f74d1ead2ce1c306",
+      "helpers/test_metadata.py": "ec2aa9758ea7f423f0018536f9b3d7cfe54496b19aed95a6b6c750631d2b3517",
+      "helpers/benchmark.py": "deee9f88b913b91dc9600e08591509ff1bd888edb72bd07c8a9b92b5a227b49c",
+      "helpers/fa4_adapter.py": "6814087017f308b89f1c07471f9e08d864317222c6461b2cdd799eff6b5f1fe5",
+      "helpers/controls.py": "c8468125cb7285a9a645057590cdcec4a229feb808292816384aa01dda94d0a6",
+      "helpers/modal_runner.py": "e278243e9c1fce119f43f211bb8f24895970114a2c9f20cfa609142302140f25",
+      "selectors/gpu_ops.py": "7a2bc4936ec7a7edbc2fda65b5e6bca0403d53effbc0dca6e586de17235a6914",
+      "selectors/block_selectors.py": "c6bb8be639ac68ebcda1d198182d2109277f753e796c0f3cd9b889e20bb101da",
+      "selectors/backends.py": "2170bcbc52f9aaa9470b3532c5fd21a8d70d982f6e8e6470b5aca1a70fbc126e",
+      "selectors/reference.py": "bed096bc1b3c38e31d15277db0a058af257b5643bfeeb3e7fb4ea221cc509ef7",
+      "selectors/harness.py": "f6ada89a0ef616f9901dad4d308a5e5ede139e72fdf4bac89dcca6291716ba3e",
+      "experiment/protocol.py": "bf42b62c75e81152a8a62aff0067991816138745ede5c7eabf4792fecf4206e8",
+      "experiment/current_benchmark.py": "52ea43b6b698a0be1a1fa5348c7d1899f65580da33cb47cfd00cd0ae3a74043b",
+      "experiment/run_modal.py": "6c9e010e02f7995bee881ea61c2543a5b6d17fee2b6bfcd7a9e9a6f3bc5f702a",
+      "experiment/test_protocol.py": "87f67ef1ce65c69ad0c995d9e21f217a5c9f1380a243aba8e9fdb8bc0422d8c3"
+    },
+    "fa4_commit": "ce088ab9ce0fc0434dcd8afa0a791da9fcc3a820",
+    "fa4_tracked_tree_clean": true,
+    "fa4_python_sha256": {
+      "__init__.py": "50713012c3a5e8045f368672342aea6eeeb3b3ce0968cb5639b1f158b9499487",
+      "ampere_helpers.py": "cadac170a7da379e27c36d044360480d710cfa88d082dad2b9decd58e4847111",
+      "barrier.py": "767af807aa7521b8d15ee6c9534f4745a7ad2224b0da2b816cc49ccb9ea6c119",
+      "bench_utils.py": "5bd0302c4cd4cd2c3b7e8b1d01eb49d546475d06897678f5543ea2e0172aae84",
+      "benchmark.py": "43bb07eb55d46a402abab8c50984eb39d4cf8f19a11ad79cd0291919614a9101",
+      "benchmark_flash_attention_fp8.py": "7677c981bc5c9f997f8e1a82eacb2e4498ba55a6c6acccdb96196ec2c24ae193",
+      "blackwell_helpers.py": "134679d00bdc93a10b69611269782911812bc0c19f0d30eb472e1d21dd3dc423",
+      "block_info.py": "c7cd78131b43d6a3906e19405236fd7d4d556d626ff4726de571b443c19c00d5",
+      "block_sparse_utils.py": "c3e71e79986e658bb26cffae2d20683e8ad3509c0ee2674fb79fbe35f641c593",
+      "block_sparsity.py": "9331cb2abd4be4da87a74c0839b665d5f914ac6f51cb97491e97b26199668ac9",
+      "cache_utils.py": "ded91c4f65ea434386eacf200cbcc9f1c604ad8b9b7dcbbe80e3264d794c00df",
+      "compute_block_sparsity.py": "88a668f6a418f4bae08c810426d0fd6a43834f7c7cf8653599a62f5c46a4e92c",
+      "copy_utils.py": "0f563eeeb6654602d1541f7202b7b88386c4dbdbd24ad6b0825834d65e508c09",
+      "cu_blocks_kernel.py": "aebbf862f2b90d13f3b1c50ee79ef49ce7babec7f61d37cfcd426bf2ab113a09",
+      "cute_dsl_ptxas.py": "21f0674c9f5a99d7c339092e49d5822d387b0a4673888becff1ac073cb5ac619",
+      "cute_dsl_utils.py": "ea4a3c935dc31d381b969f1b86631eaa44c9e22cc096bd12d130c81a2a1f92bb",
+      "fa_logging.py": "bc71edfa4b1cb7af64b78def09e790ff4c6fe64ab4fcf8e3d9699f44e8d3c0a0",
+      "fast_math.py": "7e5f822bf4d0ba36967558f3ae9a1408b410cb726c31222cd61703569d1be738",
+      "flash_bwd.py": "80cb6bfb436160d73b7214529f94d28b7333c98dff75a53d20552eb33645fea2",
+      "flash_bwd_mla_dk_sm100.py": "10990b4471c9d137726280f8e582c5400ef26b2e85aebaa08097ec00d85f1cff",
+      "flash_bwd_mla_dq_dqv_sm100.py": "84546f26b52ce6cd2887e12711dc26f777ab35d0b9451cf3a7629e6c5c8c358e",
+      "flash_bwd_mla_sm100.py": "7add176d5a739b0fe63597559fe040f7cd58c016ba39716c98f5d6080b3f689e",
+      "flash_bwd_postprocess.py": "df88b299cb938197abc145c3a85262515d1d810633229d0f929239e8291e8ce8",
+      "flash_bwd_preprocess.py": "b43ec797cb57938ee887a1576eb05aff0c1ead686e073ed4f426b47dc7a7c830",
+      "flash_bwd_sm100.py": "448b189cf4a12a67cb1e3efbb7e5eb38b37a2fc921a1835454b6ac679a6bf408",
+      "flash_bwd_sm120.py": "ad2d802c97dbf654fd03724bcfa91702b18acec8518e5dd4a33f137ba238bf7d",
+      "flash_bwd_sm90.py": "2170fcc979bd6843e73fb81133e3af23fc4d73e29b537a41a5e9a3f06492d840",
+      "flash_fwd.py": "e9d890e10611ce48dc57c40570a7b65d1ab802c508f785e5536fb10044db65f3",
+      "flash_fwd_combine.py": "f8e7f1369b892a0e4b6175e2980966348390b0ee3b1014ba195292653ebee1ae",
+      "flash_fwd_mla_sm100.py": "d73a9e5629b2e5af21622763674de63af430740723b84d8cd93c49f2f57392be",
+      "flash_fwd_sm100.py": "f5928a15a7aa559084d14aa12cc2c95efdc89c7b3a1f0d20219b24103a32456f",
+      "flash_fwd_sm120.py": "abd017add69914e46f0fcfc017ad51c3d07d79fd87d15f969036ddd82bcc7da2",
+      "flash_fwd_sm90.py": "0261f8c67cef82cbfb3125637be1ade912fc9afd0ccc33d8bb5e1de9236eef1c",
+      "interface.py": "b0af7198dd03d639f549b70ada9e64f2ab7674936c6a508205190b537d8f45f8",
+      "mask.py": "a59a0ac2d10c6c0e799a08c216f706a3ccca09eba65778ddc6ed0151a0489684",
+      "mma_sm100_desc.py": "ac6ec28b2f1a4b797c391a7807b88f83b430452d418262c3dfa7b0f3516e39f9",
+      "named_barrier.py": "1f80f96b690a2888ee1301d377665db6e9dd74b402f80eaa867d38f7294d813b",
+      "pack_gqa.py": "82ad3a7c44ab4d7b0cffc248aebfedeeadacade8ae2eabb231fddf343e8755cd",
+      "paged_kv.py": "95e84b59b3b3f84cefaa33e477332a9a1f311ef51f42960a3968a0d1eee8665a",
+      "pipeline.py": "849bce91c72be0a5c7458979e10c8290f45e05253a83600e30fb9540c61ed56a",
+      "prepare_scheduler.py": "6823d3033f88acf91d664ce127928d73a37629afd9fd376b03ae76130c180cb8",
+      "seqlen_info.py": "640d2433702635d68d4f0b94e9fa2d6b81da48b7f62056270b1b1fd480c72f30",
+      "sm100_hd256_2cta_fmha_backward.py": "08d65e70c90fcd1927337a2dce42962c9759f66152255135c43073b02df7d07a",
+      "sm100_hd256_2cta_fmha_backward_dkdvkernel.py": "891ec6b0526eeecc9c59b8d43c4d23719d9efd4b8c722d806e0c680ca972801b",
+      "sm100_hd256_2cta_fmha_backward_dqkernel.py": "1aea91ccd068be8b6c88621ba995d86168955bcfc9326fd3c8a94a36db0c4e7f",
+      "sm100_hd256_2cta_fmha_forward.py": "7bc1fefbff85ac503115ee64a61440b1973b91b8c8bca376b25589e964c5f160",
+      "sm90_config_search.py": "bd0ed6094e9fc48de587098f9b05bccbdd5f450b70d3500759a48b5d436cff9c",
+      "softmax.py": "baeefaeed5379fc046180351fe474cdcd6b48fc7f717f2ada8ef950046cdc183",
+      "testing.py": "3342b4475126666e5bff050316cd2a586852f7c82eb23fd21172470cc40a15ff",
+      "tile_scheduler.py": "569393dcbdd91a8c873ebce93e8e9928f1b31d5bd9784fa2303683f1162da0c2",
+      "topk_gather_kv.py": "5897ca804286568310d8bfec219355cacc73b907a805fdbce69a31adbf481460",
+      "utils.py": "c80d6ef6a62d005ac259829cf69c675f5f570ed93768d296e46e210768194c08"
+    },
+    "our_version": "p03",
+    "our_source": "sparse/02_gqa_block_sparse.cu",
+    "our_cuda_sha256": "0b224b2ce92d2192a5dd745cb607e04a73fb4010ebdc7373e3ab350d28268127",
+    "timeout_seconds": 480,
+    "gate_file": "20260919T190637808420Z_gate_4096_seed0.json"
+  },
+  "modal_app_id": "ap-5VO8VVr0hKf53FHHtgJchQ",
+  "remote_elapsed_seconds": 256.697942861
+}

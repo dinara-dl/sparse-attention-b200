@@ -1,0 +1,143 @@
+{
+  "run_001_candidates.json": {
+    "passed": true,
+    "remote_seconds": 113.699298692,
+    "gates": {
+      "tma8": {
+        "parent": "split8",
+        "cases": 16,
+        "comparisons": 23,
+        "max_output_abs_vs_oracle": 0.00780034065246582,
+        "max_lse_abs_vs_oracle": 2.6702880859375e-05,
+        "bit_exact": true,
+        "graph_replays": 3,
+        "graph_coverage": true
+      },
+      "tma8_bf16": {
+        "parent": "split8_bf16",
+        "cases": 16,
+        "comparisons": 23,
+        "max_output_abs_vs_oracle": 0.013486385345458984,
+        "max_lse_abs_vs_oracle": 2.6702880859375e-05,
+        "bit_exact": true,
+        "graph_replays": 3,
+        "graph_coverage": true
+      },
+      "tma16_bf16": {
+        "parent": "split8_bf16",
+        "cases": 16,
+        "comparisons": 23,
+        "max_output_abs_vs_oracle": 0.013486385345458984,
+        "max_lse_abs_vs_oracle": 2.6702880859375e-05,
+        "bit_exact": true,
+        "graph_replays": 3,
+        "graph_coverage": true
+      },
+      "memcheck": {
+        "returncode": 0,
+        "clean": true
+      },
+      "synccheck": {
+        "returncode": 0,
+        "clean": true
+      }
+    },
+    "large_g16_median_of_medians": {
+      "split8/main": 1.5965231895446776,
+      "split8/core": 2.27472346169608,
+      "split8/operator": 2.2995166778564453,
+      "split8/combine": 0.6301043430964152,
+      "split8_bf16/main": 1.3076087951660156,
+      "split8_bf16/core": 1.6560447692871094,
+      "split8_bf16/operator": 1.6808630625406902,
+      "split8_bf16/combine": 0.32755374908447266,
+      "tma8/main": 1.5926419496536255,
+      "tma8/core": 2.253232002258301,
+      "tma8/operator": 2.288005828857422,
+      "tma8/combine": 0.6464676856994629,
+      "tma8_bf16/main": 1.1731694828380237,
+      "tma8_bf16/core": 1.5337295532226562,
+      "tma8_bf16/operator": 1.5532719612121582,
+      "tma8_bf16/combine": 0.342047119140625,
+      "tma16_bf16/main": 1.103673553466797,
+      "tma16_bf16/core": 1.4905948638916016,
+      "tma16_bf16/operator": 1.5130288124084472,
+      "tma16_bf16/combine": 0.3571205139160156,
+      "control/metadata": 0.03671821969092926
+    },
+    "cases": [
+      {
+        "name": "g4",
+        "shape": {
+          "B": 1,
+          "Hq": 8,
+          "Hkv": 2,
+          "Sq": 4096,
+          "Skv": 32768,
+          "D": 128,
+          "TopK": 16
+        },
+        "pattern": "independent",
+        "median_ms": {
+          "split8/main": 0.13228335550853185,
+          "split8/core": 0.18110910668430558,
+          "split8/operator": 0.2118966814497827,
+          "split8/combine": 0.044087392580907755,
+          "split8_bf16/main": 0.111209936439991,
+          "split8_bf16/core": 0.135839042313602,
+          "split8_bf16/operator": 0.16416613260904947,
+          "split8_bf16/combine": 0.025070357533682763,
+          "tma8/main": 0.13294545086947354,
+          "tma8/core": 0.1836099742371359,
+          "tma8/operator": 0.21349566323416574,
+          "tma8/combine": 0.04445102447416724,
+          "tma8_bf16/main": 0.1120529713169221,
+          "tma8_bf16/core": 0.13755199644300672,
+          "tma8_bf16/operator": 0.1667138629489475,
+          "tma8_bf16/combine": 0.02537106532676547,
+          "tma16_bf16/main": 0.10989644792344835,
+          "tma16_bf16/core": 0.1352847738003512,
+          "tma16_bf16/operator": 0.16470763948228623,
+          "tma16_bf16/combine": 0.02584675186914755,
+          "control/metadata": 0.027399278077922883
+        }
+      },
+      {
+        "name": "short_g16",
+        "shape": {
+          "B": 1,
+          "Hq": 16,
+          "Hkv": 1,
+          "Sq": 129,
+          "Skv": 32768,
+          "D": 128,
+          "TopK": 16
+        },
+        "pattern": "independent",
+        "median_ms": {
+          "split8/main": 0.017401075842392505,
+          "split8/core": 0.02047209382582341,
+          "split8/operator": 0.0452192361187783,
+          "split8/combine": 0.0034335489052671852,
+          "split8_bf16/main": 0.01485580503609813,
+          "split8_bf16/core": 0.01835355421771174,
+          "split8_bf16/operator": 0.04274385305551382,
+          "split8_bf16/combine": 0.0030737097339692925,
+          "tma8/main": 0.016672809379756376,
+          "tma8/core": 0.020074513865287434,
+          "tma8/operator": 0.04482465738001682,
+          "tma8/combine": 0.003582710474625115,
+          "tma8_bf16/main": 0.014852223271531592,
+          "tma8_bf16/core": 0.017888180162540818,
+          "tma8_bf16/operator": 0.043375629389618205,
+          "tma8_bf16/combine": 0.0030836763342934506,
+          "tma16_bf16/main": 0.014853764443375946,
+          "tma16_bf16/core": 0.017838531650909005,
+          "tma16_bf16/operator": 0.04357735915753826,
+          "tma16_bf16/combine": 0.0030739142917253527,
+          "control/metadata": 0.024675217941678318
+        }
+      }
+    ]
+  }
+}

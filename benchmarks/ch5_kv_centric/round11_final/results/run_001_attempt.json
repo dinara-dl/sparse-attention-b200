@@ -1,0 +1,14 @@
+{
+  "status": "finished",
+  "run_id": 1,
+  "mode": "candidates",
+  "chosen": [
+    0,
+    1,
+    2
+  ],
+  "utc": "2026-09-20T17:05:58.030023+00:00",
+  "call_id": "fc-01M2ZWG7M28M7KY5MP2YZHT74Y",
+  "passed": true,
+  "result_file": "run_001_candidates.json"
+}

@@ -1,0 +1,307 @@
+diff --git a/sparse/01_block_sparse.cu b/sparse/02_gqa_block_sparse.cu
+index ee9aef1..58d5b70 100644
+--- a/sparse/01_block_sparse.cu
++++ b/sparse/02_gqa_block_sparse.cu
+@@ -1,7 +1,7 @@
+-// Step 01: dense14 -> sparse, TWO neighboring Q128 tiles with INDEPENDENT lists.
+-// Ring tokens: K0(i), K1(i), V0(i), V1(i), ... in the SAME three SMEM buffers.
+-// Teaching configuration: MHA. Compact logical GQA addressing is also supported
+-// for matched-input controls, but this stage does NOT share loads between heads.
++// Step 02: sparse -> pairwise GQA, freshly derived from dense14.
++// One Q128 tile, TWO heads of one GQA group, shared selected list and KV loads.
++// Independent scores/softmax/O; G=16 means eight head-pair tasks, not 16-head reuse.
++// Shared K(i),V(i) ring and last-head recycle protocol inherited from dense14.
+ // Both steps retain dense14's 14 warps, correction warps, KV[3], TMEM512,
+ // early PV 96/32, exp2 approximations, lazy rescale=8, persistent lockstep tasks.
+ // BF16 D128, non-causal, full selected 128x128 tiles, final O on chip.
+@@ -74,8 +74,8 @@ static_assert(TMEM_ALLOC_COLS == 512, "q_stage=2 should pack S0/S1 + O0/O1 into
+ 
+ namespace q_stage {
+ 
+-__device__ __forceinline__ int row0(int q_row0_base, int q) {
+-  return q_row0_base + q * BLOCK_M;
++__device__ __forceinline__ int row0(int q_row0_base, int q, int len_q) {
++  return q_row0_base + q * len_q;
+ }
+ 
+ __device__ __forceinline__ int q_smem(int Q_smem, int q) {
+@@ -99,15 +99,12 @@ __device__ __forceinline__ int mbar_addr(int base, int q) {
+ namespace kv_ring {
+ 
+ constexpr int STAGES = 3;
+-constexpr int TOKENS_PER_KV_TILE = 4;
++constexpr int TOKENS_PER_KV_TILE = 2;
+ constexpr int K_KIND = 0;
+ constexpr int V_KIND = 1;
+ 
+-__device__ __forceinline__ int logical_token(int kv_tile, int kind, int q) {
+-  return TOKENS_PER_KV_TILE * kv_tile + 2 * kind + q;
+-}
+-__device__ __forceinline__ int token_query(int token) {
+-  return token % q_stage::STAGES;
++__device__ __forceinline__ int logical_token(int kv_tile, int kind) {
++  return TOKENS_PER_KV_TILE * kv_tile + kind;
+ }
+ 
+ __device__ __forceinline__ int physical_stage(int token) {
+@@ -127,7 +124,7 @@ __device__ __forceinline__ int stage_mbar_addr(int mbar_kv_ready_base, int stage
+ }
+ 
+ __device__ __forceinline__ bool is_k_token(int token) {
+-  return (token % TOKENS_PER_KV_TILE) / q_stage::STAGES == K_KIND;
++  return (token % TOKENS_PER_KV_TILE) == K_KIND;
+ }
+ 
+ __device__ __forceinline__ void load_token(
+@@ -136,7 +133,7 @@ __device__ __forceinline__ void load_token(
+     int mbar_kv_ready_base, const CUtensorMap* K_tmap, const CUtensorMap* V_tmap) {
+   const int stage = physical_stage(token);
+   const int slot = token_tile(token);
+-  const int q_tile = first_q_tile + token_query(token);
++  const int q_tile = first_q_tile;
+   const int selected_base = (kv_instance * q_tiles + q_tile) * selected_count;
+   const int tile = selected_indices[selected_base + slot];
+   const int kv_row0 = kv_instance * len_kv + tile * BLOCK_N;
+@@ -178,7 +175,7 @@ __device__ __forceinline__ void issue_qk_mma(int taddr_s_stage, int Q_stage_smem
+ 
+ }  // namespace
+ 
+-__global__ __launch_bounds__(TB_SIZE, 1) void dense14_sparse_two_q_kernel(
++__global__ __launch_bounds__(TB_SIZE, 1) void dense14_sparse_gqa_kernel(
+     const __grid_constant__ CUtensorMap Q_tmap, const __grid_constant__ CUtensorMap K_tmap,
+     const __grid_constant__ CUtensorMap V_tmap, nv_bfloat16* __restrict__ O_ptr, int len_q,
+     int len_kv, int total_work_tiles, const int32_t* __restrict__ selected_indices,
+@@ -232,7 +229,6 @@ __global__ __launch_bounds__(TB_SIZE, 1) void dense14_sparse_two_q_kernel(
+   const int mbar_kv_ready_base = static_cast<int>(__cvta_generic_to_shared(mbar_kv_ready));
+ 
+   const int q_tiles = len_q / BLOCK_M;
+-  const int q_tile_pairs_per_batch = len_q / (q_stage::STAGES * BLOCK_M);
+ 
+ 
+   if (is_load_warp && elect_sync()) {
+@@ -270,11 +266,11 @@ __global__ __launch_bounds__(TB_SIZE, 1) void dense14_sparse_two_q_kernel(
+     int phase_work_done = 0;
+     for (int bid = blockIdx.x, work_iter = 0; bid < total_work_tiles;
+          bid += gridDim.x, ++work_iter) {
+-      const int batch_id = bid / q_tile_pairs_per_batch;  // flattened B*Hq
+-      const int q_tile_pair_id = bid - batch_id * q_tile_pairs_per_batch;
+-      const int first_q_tile = q_stage::STAGES * q_tile_pair_id;
+-      const int kv_instance = batch_id / group_size;
+-      const int q_row0_base = batch_id * len_q + first_q_tile * BLOCK_M;
++      const int pair_head = bid / q_tiles;
++      const int first_q_tile = bid - pair_head * q_tiles;
++      const int first_q_head = q_stage::STAGES * pair_head;
++      const int kv_instance = first_q_head / group_size;
++      const int q_row0_base = first_q_head * len_q + first_q_tile * BLOCK_M;
+ 
+       if (work_iter > 0) {
+         mbarrier::wait(mbar_work_done_addr, phase_work_done);
+@@ -303,16 +299,16 @@ __global__ __launch_bounds__(TB_SIZE, 1) void dense14_sparse_two_q_kernel(
+ 
+       for (int q = 0; q < q_stage::STAGES; ++q) {
+         const int Q_stage_smem = q_stage::q_smem(Q_smem, q);
+-        const int q_row0_stage = q_stage::row0(q_row0_base, q);
++        const int q_row0_stage = q_stage::row0(q_row0_base, q, len_q);
+         swizzle128::tma_load_kmajor(Q_stage_smem, &Q_tmap, BLOCK_M, q_row0_stage,
+                                           mbar_q_ready_addr);
+       }
+       constexpr int cp_size_q = q_stage::STAGES * Q_TILE_BYTES;
+       mbarrier::arrive_expect_tx(mbar_q_ready_addr, cp_size_q);
+ 
+-      // A buffer has exactly one Q-stream consumer in this step.
+-      int phase_k_recycle[q_stage::STAGES] = {0, 0};
+-      int phase_v_recycle[q_stage::STAGES] = {0, 0};
++      // Load warp recycles K/V only after the last q-stage consumer stream.
++      int phase_k_recycle = 0;
++      int phase_v_recycle = 0;
+       const int kv_tokens = kv_ring::TOKENS_PER_KV_TILE * kv_tiles;
+       const int prefill_tokens = (kv_tokens < kv_ring::STAGES) ? kv_tokens : kv_ring::STAGES;
+       for (int token = 0; token < prefill_tokens; ++token) {
+@@ -320,16 +316,18 @@ __global__ __launch_bounds__(TB_SIZE, 1) void dense14_sparse_two_q_kernel(
+                             selected_indices, len_kv, KV_smem, mbar_kv_ready_base, &K_tmap, &V_tmap);
+       }
+ 
++      const int last_q = q_stage::STAGES - 1;
++      const int mbar_last_qk_done_addr = q_stage::mbar_addr(mbar_qk_done_base, last_q);
++      const int mbar_last_pv_done_addr = q_stage::mbar_addr(mbar_pv_done_base, last_q);
+       for (int token = prefill_tokens; token < kv_tokens; ++token) {
+         const int recycle_token = token - kv_ring::STAGES;
+-        const int q = kv_ring::token_query(recycle_token);
+         if (kv_ring::is_k_token(recycle_token)) {
+-          mbarrier::wait(q_stage::mbar_addr(mbar_qk_done_base, q), phase_k_recycle[q]);
+-          phase_k_recycle[q] ^= 1;
++          mbarrier::wait(mbar_last_qk_done_addr, phase_k_recycle);
++          phase_k_recycle ^= 1;
+           asm volatile("tcgen05.fence::after_thread_sync;\n" ::: "memory");
+         } else {
+-          mbarrier::wait(q_stage::mbar_addr(mbar_pv_done_base, q), phase_v_recycle[q]);
+-          phase_v_recycle[q] ^= 1;
++          mbarrier::wait(mbar_last_pv_done_addr, phase_v_recycle);
++          phase_v_recycle ^= 1;
+           asm volatile("tcgen05.fence::after_thread_sync;\n" ::: "memory");
+         }
+ 
+@@ -358,15 +356,16 @@ __global__ __launch_bounds__(TB_SIZE, 1) void dense14_sparse_two_q_kernel(
+         int phase_kv_ready[kv_ring::STAGES] = {0};
+         int phase_p_half_ready[q_stage::STAGES] = {0, 0};
+         int phase_p_ready[q_stage::STAGES] = {0, 0};
+-        for (int q = 0; q < q_stage::STAGES; ++q) {
+-          const int k_token0 = kv_ring::logical_token(0, kv_ring::K_KIND, q);
+-          const int k_stage0 = kv_ring::physical_stage(k_token0);
+-          const int mbar_kv_ready_addr0 = kv_ring::stage_mbar_addr(mbar_kv_ready_base, k_stage0);
+-          const int K_stage_smem0 = kv_ring::stage_smem_addr(KV_smem, k_stage0);
+-          mbarrier::wait(mbar_kv_ready_addr0, phase_kv_ready[k_stage0]);
+-          phase_kv_ready[k_stage0] ^= 1;
+-          asm volatile("tcgen05.fence::after_thread_sync;\n" ::: "memory");
++        const int k_token0 = kv_ring::logical_token(0, kv_ring::K_KIND);
++        const int k_stage0 = kv_ring::physical_stage(k_token0);
++        const int mbar_kv_ready_addr0 = kv_ring::stage_mbar_addr(mbar_kv_ready_base, k_stage0);
++        const int K_stage_smem0 = kv_ring::stage_smem_addr(KV_smem, k_stage0);
+ 
++        mbarrier::wait(mbar_kv_ready_addr0, phase_kv_ready[k_stage0]);
++        phase_kv_ready[k_stage0] ^= 1;
++        asm volatile("tcgen05.fence::after_thread_sync;\n" ::: "memory");
++
++        for (int q = 0; q < q_stage::STAGES; ++q) {
+           const int mbar_qk_done_addr = q_stage::mbar_addr(mbar_qk_done_base, q);
+           const int Q_stage_smem = q_stage::q_smem(Q_smem, q);
+           const int taddr_s_stage = q_stage::tmem_s(taddr_s_base, q);
+@@ -377,17 +376,29 @@ __global__ __launch_bounds__(TB_SIZE, 1) void dense14_sparse_two_q_kernel(
+         }
+ 
+         for (int kv_tile = 0; kv_tile < kv_tiles; ++kv_tile) {
++          const int v_token = kv_ring::logical_token(kv_tile, kv_ring::V_KIND);
++          const int v_stage = kv_ring::physical_stage(v_token);
+           const bool first_kv = (kv_tile == 0);
++          const int mbar_kv_ready_addr = kv_ring::stage_mbar_addr(mbar_kv_ready_base, v_stage);
++          const int V_stage_smem = kv_ring::stage_smem_addr(KV_smem, v_stage);
++
+           const int next_tile = kv_tile + 1;
+           const bool have_next = (next_tile < kv_tiles);
++          int next_k_stage = 0;
++          int next_mbar_kv_ready_addr = 0;
++          int next_K_stage_smem = 0;
++          if (have_next) {
++            const int next_k_token = kv_ring::logical_token(next_tile, kv_ring::K_KIND);
++            next_k_stage = kv_ring::physical_stage(next_k_token);
++            next_mbar_kv_ready_addr = kv_ring::stage_mbar_addr(mbar_kv_ready_base, next_k_stage);
++            next_K_stage_smem = kv_ring::stage_smem_addr(KV_smem, next_k_stage);
++          }
++
++          mbarrier::wait(mbar_kv_ready_addr, phase_kv_ready[v_stage]);
++          phase_kv_ready[v_stage] ^= 1;
++          asm volatile("tcgen05.fence::after_thread_sync;\n" ::: "memory");
++
+           for (int q = 0; q < q_stage::STAGES; ++q) {
+-            const int v_token = kv_ring::logical_token(kv_tile, kv_ring::V_KIND, q);
+-            const int v_stage = kv_ring::physical_stage(v_token);
+-            const int mbar_kv_ready_addr = kv_ring::stage_mbar_addr(mbar_kv_ready_base, v_stage);
+-            const int V_stage_smem = kv_ring::stage_smem_addr(KV_smem, v_stage);
+-            mbarrier::wait(mbar_kv_ready_addr, phase_kv_ready[v_stage]);
+-            phase_kv_ready[v_stage] ^= 1;
+-            asm volatile("tcgen05.fence::after_thread_sync;\n" ::: "memory");
+             const int mbar_p_half_ready_addr = q_stage::mbar_addr(mbar_p_half_ready_base, q);
+             const int mbar_p_ready_addr = q_stage::mbar_addr(mbar_p_ready_base, q);
+             const int mbar_pv_done_addr = q_stage::mbar_addr(mbar_pv_done_base, q);
+@@ -429,13 +440,12 @@ __global__ __launch_bounds__(TB_SIZE, 1) void dense14_sparse_two_q_kernel(
+             tcgen05::commit_arrive(mbar_pv_done_addr);
+ 
+             if (have_next) {
+-              const int next_k_token = kv_ring::logical_token(next_tile, kv_ring::K_KIND, q);
+-              const int next_k_stage = kv_ring::physical_stage(next_k_token);
+-              const int next_mbar_kv_ready_addr = kv_ring::stage_mbar_addr(mbar_kv_ready_base, next_k_stage);
+-              const int next_K_stage_smem = kv_ring::stage_smem_addr(KV_smem, next_k_stage);
+-              mbarrier::wait(next_mbar_kv_ready_addr, phase_kv_ready[next_k_stage]);
+-              phase_kv_ready[next_k_stage] ^= 1;
+-              asm volatile("tcgen05.fence::after_thread_sync;\n" ::: "memory");
++              // The next K token is shared by q0 and q1, so consume its ready phase once.
++              if (q == 0) {
++                mbarrier::wait(next_mbar_kv_ready_addr, phase_kv_ready[next_k_stage]);
++                phase_kv_ready[next_k_stage] ^= 1;
++                asm volatile("tcgen05.fence::after_thread_sync;\n" ::: "memory");
++              }
+ 
+               const int mbar_qk_done_addr = q_stage::mbar_addr(mbar_qk_done_base, q);
+               const int Q_stage_smem = q_stage::q_smem(Q_smem, q);
+@@ -466,11 +476,11 @@ __global__ __launch_bounds__(TB_SIZE, 1) void dense14_sparse_two_q_kernel(
+ 
+     for (int bid = blockIdx.x, work_iter = 0; bid < total_work_tiles;
+          bid += gridDim.x, ++work_iter) {
+-      const int batch_id = bid / q_tile_pairs_per_batch;  // flattened B*Hq
+-      const int q_tile_pair_id = bid - batch_id * q_tile_pairs_per_batch;
+-      const int first_q_tile = q_stage::STAGES * q_tile_pair_id;
+-      const int kv_instance = batch_id / group_size;
+-      const int q_row0_base = batch_id * len_q + first_q_tile * BLOCK_M;
++      const int pair_head = bid / q_tiles;
++      const int first_q_tile = bid - pair_head * q_tiles;
++      const int first_q_head = q_stage::STAGES * pair_head;
++      const int kv_instance = first_q_head / group_size;
++      const int q_row0_base = first_q_head * len_q + first_q_tile * BLOCK_M;
+ 
+       mbarrier::wait(mbar_setup_done_addr, work_iter & 1);
+       asm volatile("tcgen05.fence::after_thread_sync;\n" ::: "memory");
+@@ -636,7 +646,7 @@ __global__ __launch_bounds__(TB_SIZE, 1) void dense14_sparse_two_q_kernel(
+ 
+       const float inv_denom = 1.0f / rowsum;
+       const int taddr_o_stage = q_stage::tmem_o(taddr_o_base, softmax_stage);
+-      const int q_row0_stage = q_stage::row0(q_row0_base, softmax_stage);
++      const int q_row0_stage = q_stage::row0(q_row0_base, softmax_stage, len_q);
+       float o8[8];
+ #pragma unroll
+       for (int d8 = 0; d8 < HEAD_DIM / 8; ++d8) {
+@@ -733,15 +743,17 @@ __global__ __launch_bounds__(TB_SIZE, 1) void dense14_sparse_two_q_kernel(
+   }
+ }
+ 
+-void dense14_sparse_two_q_launch_impl(const nv_bfloat16* Q_ptr, const nv_bfloat16* K_ptr,
++void dense14_sparse_gqa_launch_impl(const nv_bfloat16* Q_ptr, const nv_bfloat16* K_ptr,
+                                        const nv_bfloat16* V_ptr, const int32_t* selected_indices,
+                                   nv_bfloat16* O_ptr, int batch, int hq, int hkv,
+                                   int len_q, int len_kv, int selected_count, cudaStream_t stream) {
+   const int bs = batch * hq;
+   const int group_size = hq / hkv;
+   TORCH_CHECK(bs > 0, "bs must be positive");
+-  TORCH_CHECK(len_q >= q_stage::STAGES * BLOCK_M, "len_q must be at least 256");
+-  TORCH_CHECK(len_q % (q_stage::STAGES * BLOCK_M) == 0, "len_q must be a multiple of 256");
++  TORCH_CHECK(len_q >= BLOCK_M, "len_q must be at least 128");
++  TORCH_CHECK(len_q % BLOCK_M == 0, "len_q must be a multiple of 128");
++  TORCH_CHECK(group_size == 2 || group_size == 4 || group_size == 8 || group_size == 16,
++              "GQA head pairs require G=2/4/8/16");
+   TORCH_CHECK(len_kv >= BLOCK_N, "len_kv must be at least 128");
+   TORCH_CHECK(len_kv % BLOCK_N == 0, "len_kv must be a multiple of 128");
+ 
+@@ -767,7 +779,7 @@ void dense14_sparse_two_q_launch_impl(const nv_bfloat16* Q_ptr, const nv_bfloat1
+                       /*shared_height=*/SW128_ATOM_ROWS, /*shared_width=*/SW128_ATOM_COLS,
+                       CU_TENSOR_MAP_SWIZZLE_128B);
+ 
+-  const int total_work_tiles = bs * (len_q / (q_stage::STAGES * BLOCK_M));
++  const int total_work_tiles = (bs / q_stage::STAGES) * (len_q / BLOCK_M);
+ 
+   int device = 0;
+   int sm_count = 0;
+@@ -779,21 +791,21 @@ void dense14_sparse_two_q_launch_impl(const nv_bfloat16* Q_ptr, const nv_bfloat1
+       size_t(q_stage::STAGES * Q_TILE_BYTES + kv_ring::STAGES * KV_TILE_BYTES);
+ 
+   if (smem_bytes > 48 * 1024) {
+-    check_cuda(cudaFuncSetAttribute(dense14_sparse_two_q_kernel,
++    check_cuda(cudaFuncSetAttribute(dense14_sparse_gqa_kernel,
+                                     cudaFuncAttributeMaxDynamicSharedMemorySize,
+                                     int(smem_bytes)));
+   }
+ 
+-  dense14_sparse_two_q_kernel<<<grid, TB_SIZE, smem_bytes, stream>>>(
++  dense14_sparse_gqa_kernel<<<grid, TB_SIZE, smem_bytes, stream>>>(
+       Q_tmap, K_tmap, V_tmap, O_ptr, len_q, len_kv, total_work_tiles,
+       selected_indices, selected_count, group_size);
+   check_cuda(cudaGetLastError());
+ }
+ 
+-void dense14_sparse_two_q_launch(const nv_bfloat16* Q_ptr, const nv_bfloat16* K_ptr,
++void dense14_sparse_gqa_launch(const nv_bfloat16* Q_ptr, const nv_bfloat16* K_ptr,
+                                   const nv_bfloat16* V_ptr, const int32_t* selected_indices,
+                                   nv_bfloat16* O_ptr, int batch, int hq, int hkv,
+                                   int len_q, int len_kv, int selected_count, cudaStream_t stream) {
+-  dense14_sparse_two_q_launch_impl(Q_ptr, K_ptr, V_ptr, selected_indices, O_ptr,
++  dense14_sparse_gqa_launch_impl(Q_ptr, K_ptr, V_ptr, selected_indices, O_ptr,
+                      batch, hq, hkv, len_q, len_kv, selected_count, stream);
+ }
